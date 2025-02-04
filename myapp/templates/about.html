@@ -58,7 +58,7 @@
       <div class="lang-currency-switcher-wrap">
         <div class="lang-currency-switcher dropdown-toggle">
           <span class="language">
-            <img alt="English" src="{% static 'flags/GB.png' %}">
+            <img alt="English" src="static/img/flags/GB.png">
           </span>
           <span class="currency">$ USD</span>
         </div>
@@ -72,17 +72,18 @@
             </select>
           </div>
           <a class="dropdown-item" href="#">
-            <img src="{% static 'flags/FR.png' %}" alt="Français">Français</a>
+            <img src="{% static 'static/img/flags/FR.png' %}" alt="Français">Français</a>
           <a class="dropdown-item" href="#">
-            <img src="{% static 'flags/DE.png' %}" alt="Deutsch">Deutsch</a>
+            <img src="{% static 'static/img/flags/DE.png' %}" alt="Deutsch">Deutsch</a>
           <a class="dropdown-item" href="#">
-            <img src="{% static 'flags/IT.png' %}" alt="Italiano">Italiano</a>
+            <img src="{% static 'static/img/flags/IT.png' %}" alt="Italiano">Italiano</a>
         </div>
       </div>
     </div>
   </div>
   <!-- Navbar-->
   <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
+  {% block content %}
   <header class="navbar navbar-sticky">
     <!-- Search-->
     <form class="site-search" method="get">
@@ -101,8 +102,8 @@
         <!-- Off-Canvas Toggle (#mobile-menu)-->
         <a class="offcanvas-toggle menu-toggle" href="#mobile-menu" data-toggle="offcanvas"></a>
         <!-- Site Logo-->
-        <a class="site-logo" href="index.html">
-          <img src="{% static 'logo/logo.png' %}" alt="tshop">
+        <a class="site-logo" href="{% url 'home' %}">
+          <img src="static/img/logo/logo.png" alt="tshop">
         </a>
       </div>
     </div>
@@ -110,15 +111,15 @@
     <nav class="site-menu">
       <ul>
         <li class="has-megamenu active">
-          <a href="index.html">
+          <a href="{% url 'home' %}">
             <span>Home</span>
           </a>
           <li>
-            <a href="shop-grid-ls.html">
+            <a href="{% url 'shopgrid' %}">
               <span>Shop</span>
             </a>
             <li>
-              <a href="about.html">
+              <a href="{% url 'about' %}">
                 <span>About</span>
               </a>
     </nav>
@@ -245,7 +246,7 @@
     <div class="container padding-bottom-2x mb-2">
       <div class="row align-items-center padding-bottom-2x">
         <div class="col-md-5">
-          <img class="d-block w-270 m-auto" src="{% static 'images/features/01.jpg' %}" alt="Online Shopping">
+          <img class="d-block w-270 m-auto" src="{% static 'img/features/01.jpg' %}" alt="Online Shopping" >
         </div>
         <div class="col-md-7 text-md-left text-center">
           <div class="mt-30 hidden-md-up"></div>
@@ -263,7 +264,7 @@
       <hr>
       <div class="row align-items-center padding-top-2x padding-bottom-2x">
         <div class="col-md-5 order-md-2">
-          <img class="d-block w-270 m-auto" src="{% static 'images/features/02.jpg' %}" alt="Delivery">
+          <img class="d-block w-270 m-auto" src="{% static 'img/features/02.jpg' %}" alt="Delivery" >
         </div>
         <div class="col-md-7 order-md-1 text-md-left text-center">
           <div class="mt-30 hidden-md-up"></div>
@@ -281,7 +282,7 @@
       <hr>
       <div class="row align-items-center padding-top-2x padding-bottom-2x">
         <div class="col-md-5">
-          <img class="d-block w-270 m-auto" src="{% static 'images/features/03.jpg' %}" alt="Mobile App">
+          <img class="d-block w-270 m-auto" src="{% static 'img/features/03.jpg' %}">
         </div>
         <div class="col-md-7 text-md-left text-center">
           <div class="mt-30 hidden-md-up"></div>
@@ -306,7 +307,7 @@
       <hr>
       <div class="row align-items-center padding-top-2x padding-bottom-2x">
         <div class="col-md-5 order-md-2">
-          <img class="d-block w-270 m-auto" src="{% static 'images/features/04.jpg' %}" alt="Delivery">
+          <img class="d-block w-270 m-auto" src="{% static 'img/features/04.jpg' %}" alt="Delivery" >
         </div>
         <div class="col-md-7 order-md-1 text-md-left text-center">
           <div class="mt-30 hidden-md-up"></div>
@@ -328,7 +329,7 @@
       </div>
       <div class="row">
         <div class="col-md-3 col-sm-6 mb-30 text-center">
-          <img class="d-block w-150 mx-auto img-thumbnail rounded-circle mb-2" src="{% static 'images/team/01.jpg' %}" alt="Team">
+          <img class="d-block w-150 mx-auto img-thumbnail rounded-circle mb-2" src="{% static 'img/team/01.jpg' %}" >
           <h6>Grace Wright</h6>
           <p class="text-muted mb-2">Founder, CEO</p>
           <div class="social-bar">
@@ -344,7 +345,7 @@
           </div>
         </div>
         <div class="col-md-3 col-sm-6 mb-30 text-center">
-          <img class="d-block w-150 mx-auto img-thumbnail rounded-circle mb-2" src="{% static 'images/team/02.jpg' %}" alt="Team">
+          <img class="d-block w-150 mx-auto img-thumbnail rounded-circle mb-2" src="{% static 'img/team/02.jpg' %}" >
           <h6>Taylor Jackson</h6>
           <p class="text-muted mb-2">Financial Director</p>
           <div class="social-bar">
@@ -360,7 +361,7 @@
           </div>
         </div>
         <div class="col-md-3 col-sm-6 mb-30 text-center">
-          <img class="d-block w-150 mx-auto img-thumbnail rounded-circle mb-2" src="{% static 'images/team/03.jpg' %}" alt="Team">
+          <img class="d-block w-150 mx-auto img-thumbnail rounded-circle mb-2" src="{% static 'img/team/03.jpg' %}" >
           <h6>Quinton Cross</h6>
           <p class="text-muted mb-2">Marketing Director</p>
           <div class="social-bar">
@@ -376,7 +377,7 @@
           </div>
         </div>
         <div class="col-md-3 col-sm-6 mb-30 text-center">
-          <img class="d-block w-150 mx-auto img-thumbnail rounded-circle mb-2" src="{% static 'images/team/04.jpg' %}" alt="Team">
+          <img class="d-block w-150 mx-auto img-thumbnail rounded-circle mb-2" src="{% static 'img/team/04.jpg' %}" >
           <h6>Liana Mullen</h6>
           <p class="text-muted mb-2">Lead Designer</p>
           <div class="social-bar">
@@ -394,6 +395,7 @@
       </div>
     </div>
     <!-- Site Footer-->
+    {% endblock %}
     <footer class="site-footer">
       <div class="container">
         <div class="row">

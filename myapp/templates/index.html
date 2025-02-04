@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +34,6 @@
   </script>
 </head>
 <!-- Body-->
-
 <body>
   <!-- Off-Canvas Category Menu-->
   <div class="offcanvas-container" id="shop-categories">
@@ -257,6 +257,8 @@
   </div>
   <!-- Navbar-->
   <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
+
+  {% block content %}
   <header class="navbar navbar-sticky">
     <!-- Search-->
     <form class="site-search" method="get">
@@ -284,15 +286,15 @@
     <nav class="site-menu">
       <ul>
         <li class="has-megamenu active">
-          <a href="index.html">
+          <a href="{% url 'home' %}">
             <span>Home</span>
           </a>
           <li>
-            <a href="shop-grid-ls.html">
+            <a href="{% url 'shopgrid' %}">
               <span>Shop</span>
             </a>
             <li class="">
-              <a href="about.html">
+              <a href="{% url 'about' %}">
                 <span>About</span>
               </a>
     </nav>
@@ -768,7 +770,7 @@
               </div>
               <div class="entry-content">
                 <h4 class="entry-title">
-                  <a href="shop-single.html">Big Wordmark Tote</a>
+                  <a href="{% url 'shop_single' %}">Big Wordmark Tote</a>
                 </h4>
                 <span class="entry-meta">$29.99</span>
               </div>
@@ -781,13 +783,13 @@
             <!-- Entry-->
             <div class="entry">
               <div class="entry-thumb">
-                <a href="shop-single.html">
+                <a href="{% url 'shop_single' %}">
                   <img src="static/img/shop/widget/05.jpg" alt="Product">
                 </a>
               </div>
               <div class="entry-content">
                 <h4 class="entry-title">
-                  <a href="shop-single.html">Union Park</a>
+                  <a href="{% url 'shop_single' %}">Union Park</a>
                 </h4>
                 <span class="entry-meta">$49.99</span>
               </div>
@@ -801,7 +803,7 @@
               </div>
               <div class="entry-content">
                 <h4 class="entry-title">
-                  <a href="shop-single.html">Cole Haan Crossbody</a>
+                  <a href="{% url 'shop_single' %}">Cole Haan Crossbody</a>
                 </h4>
                 <span class="entry-meta">$200.00</span>
               </div>
@@ -912,6 +914,7 @@
       </div>
     </section>
     <!-- Site Footer-->
+    {% endblock %}
     <footer class="site-footer">
       <div class="container">
         <div class="row">

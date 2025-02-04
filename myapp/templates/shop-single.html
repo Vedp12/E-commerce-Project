@@ -80,6 +80,7 @@
   </div>
   <!-- Navbar-->
   <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
+  {% block content %}
   <header class="navbar navbar-sticky">
     <!-- Search-->
     <form class="site-search" method="get">
@@ -98,7 +99,7 @@
         <!-- Off-Canvas Toggle (#mobile-menu)-->
         <a class="offcanvas-toggle menu-toggle" href="#mobile-menu" data-toggle="offcanvas"></a>
         <!-- Site Logo-->
-        <a class="site-logo" href="index.html">
+        <a class="site-logo" href="{% url 'home' %}">
           <img src="static/img/logo/logo.png" alt="tshop">
         </a>
       </div>
@@ -107,17 +108,17 @@
     <nav class="site-menu">
       <ul>
         <li class="has-megamenu">
-          <a href="index.html">
+          <a href="{% url 'home' %}">
             <span>Home</span>
           </a>
         </li>
         <li class="active">
-          <a href="shop-grid-ls.html">
+          <a href="{% url 'shopgrid' %}"">
             <span>Shop</span>
           </a>
         </li>
         <li class="active">
-          <a href="about.html">
+          <a href="{% url 'about' %}"">
             <span>About</span>
           </a>
         </li>
@@ -704,6 +705,7 @@
         </div>
       </div>
     </div>
+    {% endblock %}
     <!-- Site Footer-->
     <footer class="site-footer">
       <div class="container">
