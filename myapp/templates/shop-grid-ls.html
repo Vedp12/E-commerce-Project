@@ -621,7 +621,7 @@
           </button>
           <aside class="sidebar sidebar-offcanvas">
             <!-- Widget Categories-->
-            <section class="widget widget-categories">
+            <!-- <section class="widget widget-categories">
               <h3 class="widget-title">Shop Categories</h3>
               <ul>
                 {% for i in mid %}
@@ -629,64 +629,50 @@
                   
                   <a href="{% url 'shopgrid' %}?mid2={{i.id}}">{{i.name}}</a>
                   <ul>
-                    {% for s in sid %}
+                    {% for s in sid2  %}
                     <li>
-                      <a href="{% url 'shopgrid' %}?sid2={{s.id}}">{{s.sub_name}}</a>
-                      <ul>
-                        <li>
-                          <!-- {% for p in pid%} -->
-                          <!-- <a href="#">{{p.product_name}}</a> -->
-                          <!-- <li>Sneakers</li> -->
-                        </li>
-                        <!-- {% endfor %} -->
-                        <!-- <li>
-                          <a href="#">Heels</a>
-                        </li>
-                        <li>
-                          <a href="#">Loafers</a>
-                        </li>
-                        <li>
-                          <a href="#">Sandals</a>
-                        </li> -->
-                      </ul>
+                      <a href="/shopgrid?sid2={{s.id}} ">{{s.sub_name}}</a>
                     </li>
-                    <!-- <li>
-                      <a href="#">Men's</a>
-                      <span>(423)</span>
-                      <ul>
-                        <li>
-                          <a href="#">Boots</a>
-                        </li>
-                        <li>
-                          <a href="#">Oxfords</a>
-                        </li>
-                        <li>
-                          <a href="#">Loafers</a>
-                        </li>
-                        <li>
-                          <a href="#">Sandals</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="#">Boy's Shoes</a>
-                      <span>(97)</span>
-                    </li>
-                    <li>
-                      <a href="#">Girl's Shoes</a>
-                      <span>(110)</span>
-                    </li> -->
                     {% endfor %}
                   </ul>
                 </li>
                 {% endfor %}
               </ul>
-              <ul>
-                <!-- 
-                <li>{{i}}</li>
-              </ul>      
-            </section>
+            </section> -->
             <!-- Widget Price Range-->
+            <section class="widget widget-categories">
+              <h3 class="widget-title">Shop Categories</h3>
+              <ul>
+                  {% for i in mid %}
+                  <li class="has-children expanded">
+                      <a href="{% url 'shopgrid' %}?mid2={{ i.id }}">{{ i.name }}</a>
+                      <ul>
+                          {% for s in sid %}
+                              {% if s.Main_Category.id == i.id %}  
+                                  <li>
+                                      <a href="{% url 'shopgrid' %}?sid2={{ s.id }}">{{ s.sub_name }}</a>
+                                  </li>
+                              {% endif %}
+                          {% endfor %}
+                      </ul>
+                  </li>
+                  {% endfor %}
+              </ul>
+          </section> 
+          
+          <!-- Display Filtered Products -->
+          <!-- <div class="product-list">
+              {% for product in pid %}
+                  <div class="product">
+                      <h4>{{ product.product_name }}</h4>
+                      <img src="{{ product.product_image.url }}" alt="{{ product.product_name }}">
+                      <p>Price: {{ product.product_price }}</p>
+                  </div>
+              {% empty %}
+                  <p>No products found.</p>
+              {% endfor %}
+          </div> -->
+          
             <section class="widget widget-categories">
               <h3 class="widget-title">Price Range</h3>
               <form class="price-range-slider" method="post" data-start-min="250" data-start-max="650" data-min="0" data-max="1000" data-step="1">
