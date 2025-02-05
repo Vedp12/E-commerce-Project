@@ -435,7 +435,7 @@
             </ul>
           </div>
           <div class="cart">
-            <a href="cart.html"></a>
+            <a href="{% url 'cart' %}"></a>
             <i class="icon-bag"></i>
             <span class="count">3</span>
             <span class="subtotal">$289.68</span>
@@ -541,12 +541,12 @@
             </div>
             <div class="column">
               <div class="shop-view">
-                <a class="grid-view active" href="shop-grid-ls.html">
+                <a class="grid-view active" href="{% url 'shopgrid1' %}">
                   <span></span>
                   <span></span>
                   <span></span>
                 </a>
-                <a class="list-view" href="shop-list-ls.html">
+                <a class="list-view" href="{% url 'shopgrid' %}">
                   <span></span>
                   <span></span>
                   <span></span>
@@ -562,7 +562,7 @@
             {% for p in pid%}
             <div class="grid-item">
               <div class="product-card">
-                <div class="product-badge text-danger">50% Off</div>
+                <!-- <div class="product-badge text-danger">50% Off</div> -->
                 <a class="product-thumb" href="shop-single.html">
                   <img src="{{p.product_image}}" alt="Product">
                 </a>
@@ -773,15 +773,15 @@
               </div>
             </section>
             <!-- Promo Banner-->
-            <section class="promo-box" style="background-image: url(img/banners/02.jpg);">
-              <!-- Choose between .overlay-dark (#000) or .overlay-light (#fff) with default opacity of 50%. You can overrride default color and opacity values via 'style' attribute.-->
+            <!-- <section class="promo-box" style="background-image: url(img/banners/02.jpg);">
+              Choose between .overlay-dark (#000) or .overlay-light (#fff) with default opacity of 50%. You can overrride default color and opacity values via 'style' attribute.
               <span class="overlay-dark" style="opacity: .45;"></span>
               <div class="promo-box-content text-center padding-top-3x padding-bottom-2x">
                 <h4 class="text-light text-thin text-shadow">New Collection of</h4>
                 <h3 class="text-bold text-light text-shadow">Sunglassess</h3>
                 <a class="btn btn-sm btn-primary" href="#">Shop Now</a>
               </div>
-            </section>
+            </section> -->
           </aside>
         </div>
       </div>
