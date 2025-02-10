@@ -23,3 +23,9 @@ class Product(models.Model):
     def __str__(self):
         return self.product_name
     
+class size_filter(models.Model):
+    product=models.ForeignKey(Product,on_delete=models.CASCADE,blank=True,null=True)
+    size=models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.size 
