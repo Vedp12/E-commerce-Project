@@ -14,12 +14,12 @@ def shopgrid(request):
     mid = Main_Category.objects.all()
     sid = Sub_category.objects.all()
     pid = Product.objects.all()  
-    sfid = size_filter.objects.all() 
+    sfid = Size_filter.objects.all() 
 
     mid2 = request.GET.get('mid2')  
     sid2 = request.GET.get('sid2')  
     sfpid = request.GET.get('sfpid')  
-    sfid = size_filter.objects.all() 
+    sfid = Size_filter.objects.all() 
 
     
     if mid2:
@@ -45,13 +45,13 @@ def shopgrid(request):
     return render(request, 'shop-grid-ls.html',context)
     
 def size_filter_product(request):
-    sfid = size_filter.objects.all() 
-    size = request.GET.get('size')  
+    sfid = Size_filter.objects.all() 
+    size = request.POST.get('size')  
     pid = Product.objects.all()  
     
     l1 = []
     if size:
-        pid = Product.objects.filter(size_filter__size=size)
+        pid = Product.objects.filter(Size_filter__size=size)
         l1.extend(pid)
         print("Filtered Products by size:", pid)
     else:
@@ -60,7 +60,7 @@ def size_filter_product(request):
     
     context = {
         "sfid": sfid,
-        # "pid": l1 if size else pid
+        "pid":l1,
     }
     # print(sfid)
     print("Selected size:", size)

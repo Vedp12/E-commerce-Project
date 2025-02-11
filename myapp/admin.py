@@ -4,4 +4,5 @@ from .models import*
 admin.site.register(Main_Category)
 admin.site.register(Sub_category)
 admin.site.register(Product)
-admin.site.register(size_filter)
+admin.site.register(Size_filter)
+admin.site.register(Brand_filter)

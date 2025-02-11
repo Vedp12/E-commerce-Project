@@ -648,7 +648,7 @@
               </div>
             </section>
             <!-- Widget Size Filter-->
-            <form action="{% url 'size_filter_product' %}" method="get" >
+            <form action="{% url 'size_filter_product' %}" method="post" >
               {% csrf_token %}
               <section class="widget">
                 <h3 class="widget-title">Filter by Size</h3>
