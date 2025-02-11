@@ -44,6 +44,7 @@ def shopgrid(request):
     print("Filtered Products:", pid)  
     return render(request, 'shop-grid-ls.html',context)
     
+
 def size_filter_product(request):
     sfid = Size_filter.objects.all() 
     size = request.POST.get('size')  
@@ -65,6 +66,30 @@ def size_filter_product(request):
     # print(sfid)
     print("Selected size:", size)
     return render(request, 'shop-grid-ls.html', context)
+
+def price_filter(request):
+    if request.POST:
+        min_num = request.POST['min_num']
+        max_num = request.POST['max_num']
+    # pid = Product.objects.filter(price__range=(min_num,max_num))
+    # print("Filtered Products by price:", pid)
+        context={
+        "min_num":min_num,
+        "max_num":max_num,
+        # "pid":pid
+        }
+        print(min_num)
+        print(max_num)
+        return render(request, 'shop-grid-ls.html',context)
+    else:
+        context={
+        "min_num":None,
+        "max_num":None,
+        # "pid":pid
+        }
+        print(min_num)
+        print(max_num)
+        return render(request, 'shop-grid-ls.html',context)
 
 def shopgrid1(request):
     return render(request, 'shop-grid-ls1.html')
