@@ -363,6 +363,7 @@
   <header class="navbar navbar-sticky">
     <!-- Search-->
     <form class="site-search" method="get">
+      {% csrf_token %}
       <input type="text" name="site_search" placeholder="Type to search...">
       <div class="search-tools">
         <span class="clear-search">Clear</span>
@@ -403,13 +404,16 @@
         </li>
       </ul>
     </nav>
-    <!-- Toolbar-->
+    <!--* Toolbar-->
     <div class="toolbar">
       <div class="inner">
         <div class="tools">
-          <div class="search">
-            <i class="icon-search"></i>
-          </div>
+          <!-- <div class="search"> -->
+            <form class="form-inline" action="{% url 'search' %}" method="post">
+              {% csrf_token %}
+              <input type="search" placeholder="Search App name" name="Search_bar" autocomplete="off" id="Search_bar" />
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
           <div class="account">
             <a href="account-orders.html"></a>
             <i class="icon-head"></i>
@@ -517,7 +521,7 @@
                   <img src="{{p.product_image}}" alt="Product">
                 </a>
                 <h3 class="product-title">
-                  <a href="shop-single.html">{{p.product_name}} </a>
+                  <a href="shop-single.html" name="product_name">{{p.product_name}} </a>
                 </h3>
                 <h4 class="product-price">
                   <span> ₹{{p.product_price}}</span>
