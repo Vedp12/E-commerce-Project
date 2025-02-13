@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Main_Category(models.Model):
     name=models.CharField(max_length=100)
     
@@ -13,8 +12,6 @@ class Sub_category(models.Model):
     
     def __str__(self):
         return self.sub_name
-    
-
     
 class Size_filter(models.Model):
     size=models.CharField(max_length=100)
@@ -39,4 +36,3 @@ class Product(models.Model):
     
     def __str__(self):
         return self.product_name
-
