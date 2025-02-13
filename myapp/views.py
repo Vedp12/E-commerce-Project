@@ -41,13 +41,13 @@ def price_filter(request):
     if request.POST:
         min_num = request.POST['min_num']
         max_num = request.POST['max_num']
-        pfid=Product.objects.filter(product_price__lte=max_num,product_price__gte=min_num)
+        pid=Product.objects.filter(product_price__lte=max_num,product_price__gte=min_num)
         context = {
         "min_num": min_num,
         "max_num": max_num,
-        "pfid": pfid
+        "pid": pid
         }
-        print(pfid)
+        print(pid)
         # print(min_num)
         # print(max_num)
         return render(request, 'shop-grid-ls.html',context)
@@ -55,11 +55,11 @@ def price_filter(request):
         context = {
         "min_num": None,
         "max_num": None,
-        "pfid": pfid
+        "pid": pid
         }
         # print(min_num)
         # print(max_num)
-        print(pfid)
+        print(pid)
         return render(request, 'shop-grid-ls.html',context)
 
 
