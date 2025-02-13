@@ -221,19 +221,18 @@
             </ul>
           </section>
           <!--* Widget Price Range-->
-          <section class="widget">
-
+          <!-- <section class="widget">
             <h3 class="widget-title">Price Range</h3>
             <form action="{% url 'price_filter' %}" method="post"></form>
             {% csrf_token %}
             <select class="form-control">
-            <!--  <option>0 - $100</option>
+            <option>0 - $100</option>
               <option>$100 - $200</option>
               <option>$200 - $500</option>
               <option>$500 - $1000</option>
               <option>$1000 - $5000</option>
-            </select> -->
-          </section>
+            </select>
+          </section> -->
           <!--* Widget Brand Filter-->
           <section class="widget">
             <h3 class="widget-title">Filter by Brand</h3>
@@ -411,7 +410,7 @@
           <div class="search">
             <i class="icon-search"></i>
           </div>
-          <!-- <div class="account">
+          <div class="account">
             <a href="account-orders.html"></a>
             <i class="icon-head"></i>
             <ul class="toolbar-dropdown">
@@ -439,7 +438,7 @@
                   <i class="icon-unlock"></i>Logout</a>
               </li>
             </ul>
-          </div> -->
+          </div>
           <div class="cart">
             <a href="{% url 'cart' %}"></a>
             <i class="icon-bag"></i>
@@ -534,7 +533,7 @@
             </div>
             {% endfor %}
           </div>
-          <nav class="pagination">
+          <nav class="pagination"> 
             <div class="column">
               <ul class="pages">
                 <li class="active">
@@ -589,25 +588,26 @@
             </section> 
             <section class="widget widget-categories">
               <h3 class="widget-title">Price Range</h3>
-              <form action="{% url 'price_filter' %}" method="post" class="price-range-slider" data-start-min="250" data-start-max="650" data-min="0" data-max="1000" data-step="1">
-                {% csrf_token %}
-                <div class="ui-range-slider"></div>
-                <footer class="ui-range-slider-footer">
+              <footer class="ui-range-slider-footer">
+                <!--* Widget Prize filter  -->
+                <form action="{% url 'price_filter' %}" method="post" class="price-range-slider" data-start-min="150" data-start-max="500" data-min="0" data-max="1000" data-step="1">
+                  <div class="ui-range-slider"></div>
+                  {% csrf_token %}
                   <div class="column">
-                    <div class="ui-range-values">
+                    <div class="ui-range-values"><br>
                       <div class="ui-range-value-min">
-                        $<span></span>
-                        <input type="hidden" name="min_num" value="{{min_num}}">
-                      </div>&nbsp;-&nbsp;
+                        ₹<span></span>
+                        <input type="hidden" name="min_num" value="{{ min_num }}">
+                      </div>&nbsp;-&nbsp; 
                       <div class="ui-range-value-max">
-                        $<span></span>
-                        <input type="hidden" name="max_num" value="{{max_num}}">
+                        <input type="hidden" name="max_num" value="{{ max_num }}">
+                        ₹<span></span>
                       </div>
                     </div>
                   </div>
-                </footer>
-                <button class="btn btn-outline-primary btn-sm" type="submit">Filter</button>
-              </form>
+                  <button class="btn btn-outline-primary btn-sm" type="submit">Filter</button>
+                </form>
+              </footer>
             </section>
             <!--* Widget Brand Filter-->
             <form action="{% url 'Brand_filter_product' %}" method="post">
@@ -623,31 +623,7 @@
               </section>
           </form>
           
-              <!-- <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="bilabong">
-                <label class="custom-control-label" for="bilabong">Bilabong&nbsp;
-                  <span class="text-muted">(39)</span>
-                </label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="klein">
-                <label class="custom-control-label" for="klein">Calvin Klein&nbsp;
-                  <span class="text-muted">(128)</span>
-                </label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="nike">
-                <label class="custom-control-label" for="nike">Nike&nbsp;
-                  <span class="text-muted">(310)</span>
-                </label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="bahama">
-                <label class="custom-control-label" for="bahama">Tommy Bahama&nbsp;
-                  <span class="text-muted">(42)</span>
-                
-                </label>
-              </div> -->
+              
             <!--* Widget Size Filter-->
             <form action="{% url 'size_filter_product' %}" method="post">
               {% csrf_token %}
@@ -669,9 +645,6 @@
               </section>
             </form>
             
-            <!-- {% if size %}
-            <p>Showing {{ count_item }} item(s) for size {{ size }}</p>
-            {% endif %} -->
           </aside>
         </div>
       </div>

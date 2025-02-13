@@ -35,7 +35,7 @@ class Product(models.Model):
     Brand_filter=models.ForeignKey(Brand_filter,on_delete=models.CASCADE,blank=True,null=True)
     product_name=models.CharField(max_length=100)
     product_image=models.ImageField(upload_to="image",blank=True,null=True)
-    product_price=models.CharField(max_length=100)
+    product_price=models.IntegerField()
     
     def __str__(self):
         return self.product_name
