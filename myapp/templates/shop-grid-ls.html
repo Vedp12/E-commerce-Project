@@ -1,0 +1,817 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  
+  <!-- Google Analytics Content Experiment code -->
+  <script>function utmx_section() { } function utmx() { } (function () {
+      var
+      k = '174297273-0', d = document, l = d.location, c = d.cookie;
+      if (l.search.indexOf('utm_expid=' + k) > 0) return;
+      function f(n) {
+        if (c) {
+          var i = c.indexOf(n + '='); if (i > -1) {
+            var j = c.
+              indexOf(';', i); return escape(c.substring(i + n.length + 1, j < 0 ? c.
+                length : j))
+          }
+        }
+      } var x = f('__utmx'), xx = f('__utmxx'), h = l.hash; d.write(
+        '<sc' + 'ript src="' + 'http' + (l.protocol == 'https:' ? 's://ssl' :
+          '://www') + '.google-analytics.com/ga_exp.js?' + 'utmxkey=' + k +
+        '&utmx=' + (x ? x : '') + '&utmxx=' + (xx ? xx : '') + '&utmxtime=' + new Date().
+          valueOf() + (h ? '&utmxhash=' + escape(h.substr(1)) : '') +
+        '" type="text/javascript" charset="utf-8"><\/sc' + 'ript>')
+    })();
+  </script>
+  <script>utmx('url', 'A/B');</script>
+  <!-- End of Google Analytics Content Experiment code -->
+
+
+  <meta charset="utf-8">
+  <title>Trilogy Shop
+  </title>
+  <!-- Mobile Specific Meta Tag-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" media="screen" href="{% static 'css/vendor.min.css' %}">
+  <!-- Main Template Styles-->
+  <link id="mainStyles" rel="stylesheet" media="screen" href="{% static 'css/styles.min.css' %}">
+  <!-- Modernizr-->
+  <script src="{% static 'js/modernizr.min.js' %}"></script>
+
+  <!--      ADD GOOGLE ANALYTICS HERE            -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118296250-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-118296250-1');
+  </script>
+
+
+
+</head>
+<!-- Body-->
+
+<body>
+  <!-- Shop Filters Modal-->
+  <div class="modal fade" id="modalShopFilters" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Shop Filters</h4>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!--* Widget Categories-->
+          <section class="widget widget-categories">
+            <h3 class="widget-title">Shop Categories</h3>
+            <ul>
+              <li class="has-children expanded">
+                <a href="#">Shoes</a>
+                <span>(1138)</span>
+                <ul>
+                  <li>
+                    <a href="#">Women's</a>
+                    <span>(508)</span>
+                    <ul>
+                      <li>
+                        <a href="#">Sneakers</a>
+                      </li>
+                      <li>
+                        <a href="#">Heels</a>
+                      </li>
+                      <li>
+                        <a href="#">Loafers</a>
+                      </li>
+                      <li>
+                        <a href="#">Sandals</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">Men's</a>
+                    <span>(423)</span>
+                    <ul>
+                      <li>
+                        <a href="#">Boots</a>
+                      </li>
+                      <li>
+                        <a href="#">Oxfords</a>
+                      </li>
+                      <li>
+                        <a href="#">Loafers</a>
+                      </li>
+                      <li>
+                        <a href="#">Sandals</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">Boy's Shoes</a>
+                    <span>(97)</span>
+                  </li>
+                  <li>
+                    <a href="#">Girl's Shoes</a>
+                    <span>(110)</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-children">
+                <a href="#">Clothing</a>
+                <span>(2356)</span>
+                <ul>
+                  <li>
+                    <a href="#">Women's</a>
+                    <span>(1032)</span>
+                    <ul>
+                      <li>
+                        <a href="#">Dresses</a>
+                      </li>
+                      <li>
+                        <a href="#">Shirts &amp; Tops</a>
+                      </li>
+                      <li>
+                        <a href="#">Swimwear</a>
+                      </li>
+                      <li>
+                        <a href="#">Shorts</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">Men's</a>
+                    <span>(937)</span>
+                    <ul>
+                      <li>
+                        <a href="#">Shirts &amp; Tops</a>
+                      </li>
+                      <li>
+                        <a href="#">Shorts</a>
+                      </li>
+                      <li>
+                        <a href="#">Swimwear</a>
+                      </li>
+                      <li>
+                        <a href="#">Pants</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">Kid's Clothing</a>
+                    <span>(386)</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-children">
+                <a href="#">Bags</a>
+                <span>(420)</span>
+                <ul>
+                  <li>
+                    <a href="#">Handbags</a>
+                    <span>(180)</span>
+                  </li>
+                  <li>
+                    <a href="#">Backpacks</a>
+                    <span>(132)</span>
+                  </li>
+                  <li>
+                    <a href="#">Wallets &amp; Accessories</a>
+                    <span>(47)</span>
+                  </li>
+                  <li>
+                    <a href="#">Luggage</a>
+                    <span>(61)</span>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-children">
+                <a href="#">Accessories</a>
+                <span>(874)</span>
+                <ul>
+                  <li>
+                    <a href="#">Sunglasses</a>
+                    <span>(211)</span>
+                  </li>
+                  <li>
+                    <a href="#">Hats</a>
+                    <span>(195)</span>
+                  </li>
+                  <li>
+                    <a href="#">Watches</a>
+                    <span>(159)</span>
+                  </li>
+                  <li>
+                    <a href="#">Jewelry</a>
+                    <span>(203)</span>
+                  </li>
+                  <li>
+                    <a href="#">Belts</a>
+                    <span>(106)</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <!--* Widget Price Range-->
+          <!-- <section class="widget">
+            <h3 class="widget-title">Price Range</h3>
+            <form action="{% url 'price_filter' %}" method="post"></form>
+            {% csrf_token %}
+            <select class="form-control">
+            <option>0 - $100</option>
+              <option>$100 - $200</option>
+              <option>$200 - $500</option>
+              <option>$500 - $1000</option>
+              <option>$1000 - $5000</option>
+            </select>
+          </section> -->
+          <!--* Widget Brand Filter-->
+          <section class="widget">
+            <h3 class="widget-title">Filter by Brand</h3>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" id="adidas">
+              <label class="custom-control-label" for="adidas">Adidas&nbsp;
+                <span class="text-muted">(254)</span>
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" id="bilabong">
+              <label class="custom-control-label" for="bilabong">Bilabong&nbsp;
+                <span class="text-muted">(39)</span>
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" id="klein">
+              <label class="custom-control-label" for="klein">Calvin Klein&nbsp;
+                <span class="text-muted">(128)</span>
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" id="nike">
+              <label class="custom-control-label" for="nike">Nike&nbsp;
+                <span class="text-muted">(310)</span>
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" id="bahama">
+              <label class="custom-control-label" for="bahama">Tommy Bahama&nbsp;
+                <span class="text-muted">(42)</span>
+              </label>
+            </div>
+          </section>
+          <!--* Widget Size Filter-->
+          <section class="widget">
+            <h3 class="widget-title">Filter by Size</h3>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" id="xl">
+              <label class="custom-control-label" for="xl">XL&nbsp;
+                <span class="text-muted">(208)</span>
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" id="l">
+              <label class="custom-control-label" for="l">L&nbsp;
+                <span class="text-muted">(311)</span>
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" id="m">
+              <label class="custom-control-label" for="m">M&nbsp;
+                <span class="text-muted">(485)</span>
+              </label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" id="s">
+              <label class="custom-control-label" for="s">S&nbsp;
+                <span class="text-muted">(213)</span>
+              </label>
+            </div>
+          </section>
+          <!-- Promo Banner-->
+          <section class="promo-box" style="background-image: url(img/banners/02.jpg);">
+            <!-- Choose between .overlay-dark (#000) or .overlay-light (#fff) with default opacity of 50%. You can overrride default color and opacity values via 'style' attribute.-->
+            <span class="overlay-dark" style="opacity: .45;"></span>
+            <div class="promo-box-content text-center padding-top-3x padding-bottom-2x">
+              <h4 class="text-light text-thin text-shadow">New Collection of</h4>
+              <h3 class="text-bold text-light text-shadow">Sunglassess</h3>
+              <a class="btn btn-sm btn-primary" href="#">Shop Now</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Topbar-->
+  <div class="topbar">
+    <div class="topbar-column">
+      <a class="hidden-md-down" href="mailto:support@tshop.com">
+        <i class="icon-mail"></i>&nbsp; support@tshop.com</a>
+      <a class="hidden-md-down" href="tel:00331697720">
+        <i class="icon-bell"></i>&nbsp; 00 33 169 7720</a>
+      <a class="social-button sb-facebook shape-none sb-dark" href="#" target="_blank">
+        <i class="socicon-facebook"></i>
+      </a>
+      <a class="social-button sb-twitter shape-none sb-dark" href="#" target="_blank">
+        <i class="socicon-twitter"></i>
+      </a>
+      <a class="social-button sb-instagram shape-none sb-dark" href="#" target="_blank">
+        <i class="socicon-instagram"></i>
+      </a>
+      <a class="social-button sb-pinterest shape-none sb-dark" href="#" target="_blank">
+        <i class="socicon-pinterest"></i>
+      </a>
+    </div>
+    <div class="topbar-column">
+      <a class="hidden-md-down" href="#">
+        <i class="icon-download"></i>&nbsp; Get mobile app</a>
+      <div class="lang-currency-switcher-wrap">
+        <div class="lang-currency-switcher dropdown-toggle">
+          <span class="language">
+            <img alt="English" src="static/img/flags/GB.png">
+          </span>
+          <span class="currency">$ USD</span>
+        </div>
+        <div class="dropdown-menu">
+          <div class="currency-select">
+            <select class="form-control form-control-rounded form-control-sm">
+              <option value="usd">$ USD</option>
+              <option value="usd">€ EUR</option>
+              <option value="usd">£ UKP</option>
+              <option value="usd">¥ JPY</option>
+            </select>
+          </div>
+          <a class="dropdown-item" href="#">
+            <img src="static/img/flags/FR.png" alt="Français">Français</a>
+          <a class="dropdown-item" href="#">
+            <img src="static/img/flags/DE.png" alt="Deutsch">Deutsch</a>
+          <a class="dropdown-item" href="#">
+            <img src="static/img/flags/IT.png" alt="Italiano">Italiano</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Navbar-->
+  <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
+  <header class="navbar navbar-sticky">
+    <!-- Search-->
+    <form class="site-search" method="get">
+      {% csrf_token %}
+      <input type="text" name="site_search" placeholder="Type to search...">
+      <div class="search-tools">
+        <span class="clear-search">Clear</span>
+        <span class="close-search">
+          <i class="icon-cross"></i>
+        </span>
+      </div>
+    </form>
+    <div class="site-branding">
+      <div class="inner">
+        <!-- Off-Canvas Toggle (#shop-categories)-->
+        <a class="offcanvas-toggle cats-toggle" href="#shop-categories" data-toggle="offcanvas"></a>
+        <!-- Off-Canvas Toggle (#mobile-menu)-->
+        <a class="offcanvas-toggle menu-toggle" href="#mobile-menu" data-toggle="offcanvas"></a>
+        <!-- Site Logo-->
+        <a class="site-logo" href="{% url 'home' %}">
+          <img src="static/img/logo/logo.png" alt="tshop">
+        </a>
+      </div>
+    </div>
+    <!-- Main Navigation-->
+    <nav class="site-menu">
+      <ul>
+        <li class="has-megamenu">
+          <a href="{% url 'home' %}">
+            <span>Home</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="{% url 'shopgrid' %}">
+            <span>Shop</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="{% url 'about' %}">
+            <span>About</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!--* Toolbar-->
+    <div class="toolbar">
+      <div class="inner">
+        <div class="tools">
+          <!-- <div class="search"> -->
+            <form class="form-inline" action="{% url 'search' %}" method="post">
+              {% csrf_token %}
+              <input type="search" placeholder="Search App name" name="Search_bar" autocomplete="off" id="Search_bar" />
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          <div class="account">
+            <a href="account-orders.html"></a>
+            <i class="icon-head"></i>
+            <ul class="toolbar-dropdown">
+              <li class="sub-menu-user">
+                <div class="user-ava">
+                  <img src="static/img/account/user-ava-sm.jpg" alt="Daniel Adams">
+                </div>
+                <div class="user-info">
+                  <h6 class="user-name">Daniel Adams</h6>
+                  <span class="text-xs text-muted">290 Reward points</span>
+                </div>
+              </li>
+              <li>
+                <a href="account-profile.html">My Profile</a>
+              </li>
+              <li>
+                <a href="account-orders.html">Orders List</a>
+              </li>
+              <li>
+                <a href="account-wishlist.html">Wishlist</a>
+              </li>
+              <li class="sub-menu-separator"></li>
+              <li>
+                <a href="#">
+                  <i class="icon-unlock"></i>Logout</a>
+              </li>
+            </ul>
+          </div>
+          <div class="cart">
+            <a href="{% url 'cart' %}"></a>
+            <i class="icon-bag"></i>
+            <span class="count">3</span>
+            <span class="subtotal">$289.68</span>
+            
+      </div>
+    </div>
+  </header>
+  <!-- Off-Canvas Wrapper-->
+  <div class="offcanvas-wrapper">
+    <!-- Page Title-->
+    <div class="page-title">
+      <div class="container">
+        <div class="column">
+          <h1>Shop Grid Left Sidebar</h1>
+        </div>
+        <div class="column">
+          <ul class="breadcrumbs">
+            <li>
+              <a href="index.html">Home</a>
+            </li>
+            <li class="separator">&nbsp;</li>
+            <li>Shop Grid Left Sidebar</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Page Content-->
+    <div class="container padding-bottom-3x mb-1">
+      <div class="row">
+        <!-- Products-->
+        <div class="col-xl-9 col-lg-8 order-lg-2">
+          <!-- Shop Toolbar-->
+          <div class="shop-toolbar padding-bottom-1x mb-2">
+            <div class="column">
+              <div class="shop-sorting">
+                <label for="sorting">Sort by:</label>
+                <select class="form-control" id="sorting">
+                  <option>Popularity</option>
+                  <option>Low - High Price</option>
+                  <option>High - Low Price</option>
+                  <option>Avarage Rating</option>
+                  <option>A - Z Order</option>
+                  <option>Z - A Order</option>
+                </select>
+                <span class="text-muted">Showing:&nbsp;</span>
+                <span>1 - 12 items</span>
+              </div>
+            </div>
+            <div class="column">
+              <div class="shop-view">
+                <a class="grid-view active" href="{% url 'shopgrid1' %}">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </a>
+                <a class="list-view" href="{% url 'shopgrid' %}">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- Products Grid-->
+          <div class="isotope-grid cols-3 mb-2">
+            <div class="gutter-sizer"></div>
+            <div class="grid-sizer"></div>
+            <!-- Product-->
+            {% for p in pid%}
+            <div class="grid-item">
+              <div class="product-card">
+                <!-- <div class="product-badge text-danger">50% Off</div> -->
+                <a class="product-thumb" href="shop-single.html">
+                  <img src="{{p.product_image}}" alt="Product">
+                </a>
+                <h3 class="product-title">
+                  <a href="shop-single.html" name="product_name">{{p.product_name}} </a>
+                </h3>
+                <h4 class="product-price">
+                  <span> ₹{{p.product_price}}</span>
+                </h4>
+                <div class="product-buttons">
+                  <button class="btn btn-outline-secondary btn-sm btn-wishlist wishlist-btn" title="Whishlist">
+                    <img src="static/img/wishlistoff.png" style="height: 20px; width:20px;" class="wishlist-img">
+                  </button>
+                  <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check"
+                    data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <nav class="pagination"> 
+            <div class="column">
+              <ul class="pages">
+                <li class="active">
+                  <a href="#">1</a>
+                </li>
+                <li>
+                  <a href="#">2</a>
+                </li>
+                <li>
+                  <a href="#">3</a>
+                </li>
+                <li>
+                  <a href="#">4</a>
+                </li>
+                <li>...</li>
+                <li>
+                  <a href="#">12</a>
+                </li>
+              </ul>
+            </div>
+            <div class="column text-right hidden-xs-down">
+              <a class="btn btn-outline-secondary btn-sm" href="#">Next&nbsp;
+                <i class="icon-arrow-right"></i>
+              </a>
+            </div>
+          </nav>
+        </div>
+        <div class="col-xl-3 col-lg-4 order-lg-1">
+          <button class="sidebar-toggle position-left" data-toggle="modal" data-target="#modalShopFilters">
+            <i class="icon-layout"></i>
+          </button>
+          <aside class="sidebar sidebar-offcanvas">
+            
+            <section class="widget widget-categories">
+              <h3 class="widget-title">Shop Categories</h3>
+              <ul>
+                  {% for i in mid %}
+                  <li class="has-children expanded">
+                      <a href="{% url 'shopgrid' %}?mid2={{ i.id }}">{{ i.name }}</a>
+                      <ul>
+                          {% for s in sid %}
+                              {% if s.Main_Category.id == i.id %}  
+                                  <li>
+                                      <a href="{% url 'shopgrid' %}?sid2={{ s.id }}">{{ s.sub_name }}</a>
+                                  </li>
+                              {% endif %}
+                          {% endfor %}
+                      </ul>
+                  </li>
+                  {% endfor %}
+              </ul>
+            </section> 
+            <section class="widget widget-categories">
+              <h3 class="widget-title">Price Range</h3>
+              <footer class="ui-range-slider-footer">
+                <!--* Widget Prize filter  -->
+                <form action="{% url 'price_filter' %}" method="post" class="price-range-slider" data-start-min="150" data-start-max="500" data-min="0" data-max="1000" data-step="1">
+                  <div class="ui-range-slider"></div>
+                  {% csrf_token %}
+                  <div class="column">
+                    <div class="ui-range-values"><br>
+                      <div class="ui-range-value-min">
+                        ₹<span></span>
+                        <input type="hidden" name="min_num" value="{{ min_num }}">
+                      </div>&nbsp;-&nbsp; 
+                      <div class="ui-range-value-max">
+                        <input type="hidden" name="max_num" value="{{ max_num }}">
+                        ₹<span></span>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-outline-primary btn-sm" type="submit">Filter</button>
+                </form>
+              </footer>
+            </section>
+            <!--* Widget Brand Filter-->
+            <form action="{% url 'Brand_filter_product' %}" method="post">
+              {% csrf_token %}
+              <section class="widget">
+                  <h3 class="widget-title">Filter by Brand</h3>
+                  {% for b in Bid %}
+                  <div>
+                      <input type="checkbox" name="brand" value="{{ b.id }}"> {{ b.brand }}
+                  </div>
+                  {% endfor %}
+                  <button class="btn btn-outline-primary btn-sm" type="submit">Filter</button>
+              </section>
+          </form>
+          
+              
+            <!--* Widget Size Filter-->
+            <form action="{% url 'size_filter_product' %}" method="post">
+              {% csrf_token %}
+              <section class="widget">
+                <h3 class="widget-title">Filter by Size</h3>
+                {% for i in sfid %}
+                <div>
+                  <input type="checkbox" name="size" value="{{ i.size }}">
+                  {{ i.size }} 
+<!--                   
+                  {% for key,value in size_counts.items %}
+                    {% if key == i.size %}
+                      <span>{{ value }}</span>
+                    {% endif %}
+                  {% endfor %} -->
+                </div>
+                {% endfor %}
+                <button class="btn btn-outline-primary btn-sm" type="submit">Filter</button>
+              </section>
+            </form>
+            
+          </aside>
+        </div>
+      </div>
+    </div>
+    <!-- Site Footer-->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6">
+            <!-- Contact Info-->
+            <section class="widget widget-light-skin">
+              <h3 class="widget-title">Get In Touch With Us</h3>
+              <p class="text-white">Phone: 00 33 169 7720</p>
+              <ul class="list-unstyled text-sm text-white">
+                <li>
+                  <span class="opacity-50">Monday-Friday:</span>9.00 am - 8.00 pm</li>
+                <li>
+                  <span class="opacity-50">Saturday:</span>10.00 am - 6.00 pm</li>
+              </ul>
+              <p>
+                <a class="navi-link-light" href="#">support@tshop.com</a>
+              </p>
+              <a class="social-button shape-circle sb-facebook sb-light-skin" href="#">
+                <i class="socicon-facebook"></i>
+              </a>
+              <a class="social-button shape-circle sb-twitter sb-light-skin" href="#">
+                <i class="socicon-twitter"></i>
+              </a>
+              <a class="social-button shape-circle sb-instagram sb-light-skin" href="#">
+                <i class="socicon-instagram"></i>
+              </a>
+              <a class="social-button shape-circle sb-google-plus sb-light-skin" href="#">
+                <i class="socicon-googleplus"></i>
+              </a>
+            </section>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <!-- Mobile App Buttons-->
+            <section class="widget widget-light-skin">
+              <h3 class="widget-title">Our Mobile App</h3>
+              <a class="market-button apple-button mb-light-skin" href="#">
+                <span class="mb-subtitle">Download on the</span>
+                <span class="mb-title">App Store</span>
+              </a>
+              <a class="market-button google-button mb-light-skin" href="#">
+                <span class="mb-subtitle">Download on the</span>
+                <span class="mb-title">Google Play</span>
+              </a>
+              <a class="market-button windows-button mb-light-skin" href="#">
+                <span class="mb-subtitle">Download on the</span>
+                <span class="mb-title">Windows Store</span>
+              </a>
+            </section>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <!-- About Us-->
+            <section class="widget widget-links widget-light-skin">
+              <h3 class="widget-title">About Us</h3>
+              <ul>
+                <li>
+                  <a href="#">Careers</a>
+                </li>
+                <li>
+                  <a href="#">About tshop</a>
+                </li>
+                <li>
+                  <a href="#">Our Story</a>
+                </li>
+                <li>
+                  <a href="#">Services</a>
+                </li>
+                <li>
+                  <a href="#">Our Blog</a>
+                </li>
+              </ul>
+            </section>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <!-- Account / Shipping Info-->
+            <section class="widget widget-links widget-light-skin">
+              <h3 class="widget-title">Account &amp; Shipping Info</h3>
+              <ul>
+                <li>
+                  <a href="#">Your Account</a>
+                </li>
+                <li>
+                  <a href="#">Shipping Rates & Policies</a>
+                </li>
+                <li>
+                  <a href="#">Refunds & Replacements</a>
+                </li>
+                <li>
+                  <a href="#">Taxes</a>
+                </li>
+                <li>
+                  <a href="#">Delivery Info</a>
+                </li>
+                <li>
+                  <a href="#">Affiliate Program</a>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </div>
+        <hr class="hr-light mt-2 margin-bottom-2x">
+        <div class="row">
+          <div class="col-md-7 padding-bottom-1x">
+            <!-- Payment Methods-->
+            <div class="margin-bottom-1x" style="max-width: 615px;">
+              <img src="static/img/payment_methods.png" alt="Payment Methods">
+            </div>
+          </div>
+          <div class="col-md-5 padding-bottom-1x">
+            <div class="margin-top-1x hidden-md-up"></div>
+            <!--Subscription-->
+            <form class="subscribe-form" action="//rokaux.us12.list-manage.com/subscribe/post?u=c7103e2c981361a6639545bd5&amp;amp;id=1194bb7544"
+              method="post" target="_blank" novalidate>
+              <div class="clearfix">
+                <div class="input-group input-light">
+                  <input class="form-control" type="email" name="EMAIL" placeholder="Your e-mail">
+                  <span class="input-group-addon">
+                    <i class="icon-mail"></i>
+                  </span>
+                </div>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                  <input type="text" name="b_c7103e2c981361a6639545bd5_1194bb7544" tabindex="-1">
+                </div>
+                <button class="btn btn-primary" type="submit">
+                  <i class="icon-check"></i>
+                </button>
+              </div>
+              <span class="form-text text-sm text-white opacity-50">Subscribe to our Newsletter to receive early discount offers, latest news, sales and promo information.</span>
+            </form>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <!-- Back To Top Button-->
+  <a class="scroll-to-top-btn" href="#">
+    <i class="icon-arrow-up"></i>
+  </a>
+  <!-- Backdrop-->
+  <div class="site-backdrop"></div>
+  <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
+  <script src="{% static 'js/vendor.min.js' %}"></script>
+  <script src="{% static 'js/scripts.min.js' %}"></script>
+  <script>
+    const wishlistButtons = document.querySelectorAll(".wishlist-btn");
+    wishlistButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const wishlistImg = button.querySelector(".wishlist-img");
+        if (wishlistImg.src.includes("static/img/wishlistoff.png")) {
+          wishlistImg.src = "static/img/wishliston.png"; // Change to active image
+        } else {
+          wishlistImg.src = "static/img/wishlistoff.png"; // Change back to default image
+        }
+      });
+    });
+  </script>
+  <!-- Customizer scripts-->
+  <script src="{% static 'customizer/customizer.min.js' %}"></script>
+</body>
+
+</html>
