@@ -527,8 +527,8 @@
                   <span> ₹{{p.product_price}}</span>
                 </h4>
                 <div class="product-buttons">
-                  <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                    <i class="icon-heart"></i>
+                  <button class="btn btn-outline-secondary btn-sm btn-wishlist wishlist-btn" title="Whishlist">
+                    <img src="static/img/wishlistoff.png" style="height: 20px; width:20px;" class="wishlist-img">
                   </button>
                   <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check"
                     data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
@@ -797,6 +797,19 @@
   <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
   <script src="{% static 'js/vendor.min.js' %}"></script>
   <script src="{% static 'js/scripts.min.js' %}"></script>
+  <script>
+    const wishlistButtons = document.querySelectorAll(".wishlist-btn");
+    wishlistButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const wishlistImg = button.querySelector(".wishlist-img");
+        if (wishlistImg.src.includes("static/img/wishlistoff.png")) {
+          wishlistImg.src = "static/img/wishliston.png"; // Change to active image
+        } else {
+          wishlistImg.src = "static/img/wishlistoff.png"; // Change back to default image
+        }
+      });
+    });
+  </script>
   <!-- Customizer scripts-->
   <script src="{% static 'customizer/customizer.min.js' %}"></script>
 </body>
