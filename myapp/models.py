@@ -43,4 +43,5 @@ class Wishlist(models.Model):
     product_price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return self.product_name
+        return self.product_name 
+
