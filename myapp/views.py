@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, HttpResponse
-from .models import *
-#^ Home 
+from django.shortcuts import get_object_or_404
+from .models import Wishlist, Product, Main_Category, Sub_category, Size_filter, Brand_filter
+
 def home(request):
     return render(request, 'index.html')
-# 
+
 def cart(request):
     return render(request, 'cart.html')
 
@@ -18,7 +19,10 @@ def shopgrid(request):
     mid2 = request.GET.get('mid2')
     sid2 = request.GET.get('sid2')
     Bid = Brand_filter.objects.all()
-    ##print(Bid)
+    wishlist = None
+    if request.method == 'POST':
+        wishlist = Wishlist.objects.all()
+
     if mid2:
         sid = sid.filter(Main_Category_id=mid2)
 
@@ -33,44 +37,55 @@ def shopgrid(request):
         "sid2": sid2,
         "sfid": sfid,
         "Bid": Bid,
+        "wishlist": wishlist,
     }    
     return render(request, 'shop-grid-ls.html', context)
 
+
+def wishlist(request, id):
+    if request.method == 'POST':
+        pid = get_object_or_404(Product, id=id)
+        wishlist, created = Wishlist.objects.get_or_create(
+            Product=pid,
+            defaults={
+                'product_name': pid.product_name,
+                'product_image': pid.product_image,
+                'product_price': pid.product_price
+            }
+        )
+        return redirect('shopgrid')
+    else:
+        return redirect('shopgrid')
+
+
 def search(request):
     Search_bar = request.POST.get('Search_bar')
-    # product_name = request.POST.get('product_name')
+    
     print(Search_bar)
     if Search_bar:
         pid = Product.objects.filter(product_name__icontains=Search_bar)
     else:
         pid = Product.objects.all()
-    return render(request , 'shop-grid-ls.html', {'pid':pid} )
+    return render(request , 'shop-grid-ls.html', {'pid': pid} )
 
 def price_filter(request):
     if request.POST:
         min_num = request.POST['min_num']
         max_num = request.POST['max_num']
-        pid=Product.objects.filter(product_price__lte=max_num,product_price__gte=min_num)
+        pid = Product.objects.filter(product_price__lte=max_num, product_price__gte=min_num)
         context = {
         "min_num": min_num,
         "max_num": max_num,
         "pid": pid
         }
-        #print(pid)
-        # #print(min_num)
-        # #print(max_num)
-        return render(request, 'shop-grid-ls.html',context)
+        return render(request, 'shop-grid-ls.html', context)
     else:
         context = {
         "min_num": None,
         "max_num": None,
         "pid": pid
         }
-        # #print(min_num)
-        # #print(max_num)
-        #print(pid)
-        return render(request, 'shop-grid-ls.html',context)
-
+        return render(request, 'shop-grid-ls.html', context)
 
 def size_filter_product(request):
     sfid = Size_filter.objects.all()
@@ -81,7 +96,7 @@ def size_filter_product(request):
         pid = Product.objects.filter(Size_filter__size=size)
         l1 = []
         l1.extend(pid)
-        # #print("Filtered Products by size:", pid)
+        
         context = {
             "sfid": sfid,
             "pid": l1 if size else pid,
@@ -89,27 +104,24 @@ def size_filter_product(request):
         }
     else:
         pid = Product.objects.all()
-        #print("All Products:", pid)
+        
         context = {
             "sfid": sfid,
             "pid": pid,
             "size": size,
         }
 
-    # #print("Selected size:", size)
     return render(request, 'shop-grid-ls.html', context)
 
 def Brand_filter_product(request):
     Bid = Brand_filter.objects.all()
     pid = Product.objects.all()
-    brand = request.POST.getlist('brand')  # Get list of selected brand IDs (as strings)
+    brand = request.POST.getlist('brand')  
 
     if brand:
-        brand_ids = [int(b) for b in brand]  # Convert list of strings to integers
+        brand_ids = [int(b) for b in brand]  
         pid = pid.filter(Brand_filter__id__in=brand_ids)
-        ##print('Filtered Products by brand:', pid)
-        
-    ##print("Selected brands:", brand)
+    
     context = {
         'Bid': Bid,
         'pid': pid,
@@ -117,6 +129,24 @@ def Brand_filter_product(request):
     }
 
     return render(request, 'shop-grid-ls.html', context)
+
+def wishlist(request, id):
+    if request.method == 'POST':
+        pid = Product.objects.get(id=id)
+        wishlist, created = Wishlist.objects.get_or_create(
+            product=pid,
+            product_name=pid.product_name,
+            product_image=pid.product_image,
+            product_price=pid.product_price
+        )
+        if created:
+            wishlist.save()
+        context = {
+            "wishlist": wishlist
+        }
+        return render(request, 'shop-grid-ls.html', context)
+    else:
+        return redirect('shopgrid')
 
 def shopgrid1(request):
     return render(request, 'shop-grid-ls1.html')
