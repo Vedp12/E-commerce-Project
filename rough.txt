@@ -1,0 +1,322 @@
+<header class="navbar navbar-sticky">
+  <div class="header-container">
+    <!-- Site Branding -->
+    <div class="site-branding">
+      <div class="inner">
+        <a
+          class="offcanvas-toggle cats-toggle"
+          href="#shop-categories"
+          data-toggle="offcanvas"
+        ></a>
+        <a
+          class="offcanvas-toggle menu-toggle"
+          href="#mobile-menu"
+          data-toggle="offcanvas"
+        ></a>
+        <a class="site-logo" href="{% url 'home' %}">
+          <img src="static/img/logo/logo.png" alt="tshop" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="site-menu">
+      <ul>
+        <li class="has-megamenu">
+          <a href="{% url 'home' %}"><span>Home</span></a>
+        </li>
+        <li class="active">
+          <a href="{% url 'shopgrid' %}"><span>Shop</span></a>
+        </li>
+        <li class="active">
+          <a href="{% url 'about' %}"><span>About</span></a>
+        </li>
+      </ul>
+    </nav>
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="inner">
+        <div class="tools">
+          <div class="account">
+            <a href="account-orders.html"
+              ></a>
+            <i class="icon-head"></i>
+            <ul class="toolbar-dropdown">
+              <li class="sub-menu-user">
+                <div class="user-ava">
+                  <img src="static/account/user-ava.jpg" alt="" />
+                </div>
+                <div class="user-info">
+                  <h6 class="user-name">Daniel Adams</h6>
+                  <span class="text-xs text-muted">290 Reward points</span>
+                </div>
+              </li>
+              <li><a href="account-profile.html">My Profile</a></li>
+              <li><a href="account-orders.html">Orders List</a></li>
+              <li><a href="{% url 'cart' %}">Cart</a></li>
+              <li><a href="account-wishlist.html">Wishlist</a></li>
+              <li class="sub-menu-separator"></li>
+              <li>
+                <a href="#"><i class="icon-unlock"></i>Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Header Container */
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff; /* Adjust as needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional */
+  }
+
+  /* Site Branding */
+  .site-branding {
+    flex: 1;
+  }
+
+  .site-branding .inner {
+    display: flex;
+    align-items: center;
+  }
+
+  .site-branding .offcanvas-toggle {
+    margin-right: 10px;
+  }
+
+  .site-branding .site-logo img {
+    max-height: 50px; /* Adjust as needed */
+  }
+
+  /* Main Navigation */
+  .site-menu {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+  }
+
+  .site-menu ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-menu ul li {
+    margin: 0 15px;
+  }
+
+  .site-menu ul li a {
+    text-decoration: none;
+    color: #333; /* Adjust as needed */
+    font-weight: 500;
+  }
+
+  /* Toolbar */
+  .toolbar {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .toolbar .inner {
+    display: flex;
+    align-items: center;
+  }
+
+  .toolbar .tools {
+    display: flex;
+    align-items: center;
+  }
+
+  .toolbar .account {
+    position: relative;
+    margin-right: 20px;
+  }
+
+  .toolbar .account img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+  .toolbar .toolbar-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+  }
+
+  .toolbar .account:hover .toolbar-dropdown {
+    display: block;
+  }
+
+  /* Search Form */
+  /* Search Bar Container */
+  .search {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Spacing between search bar and other elements */
+    max-width: 300px; /* Adjust as needed */
+    width: 100%; /* Make it responsive */
+    position: relative; /* Use relative positioning */
+    z-index: 1; /* Ensure it stays below other elements */
+  }
+
+  /* Search Input Field */
+  .search .input_s {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 5px;
+    width: 100%; /* Full width within the container */
+    font-size: 14px;
+    outline: none; /* Remove default focus outline */
+    transition: border-color 0.3s ease; /* Smooth transition for focus */
+  }
+
+  .search .input_s:focus {
+    border-color: #007bff; /* Highlight input on focus */
+  }
+
+  /* Search Button */
+  .search .search__button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease; /* Smooth hover effect */
+  }
+
+  .search .search__button:hover {
+    opacity: 0.8; /* Slight fade on hover */
+  }
+
+  .search .search__button svg {
+    width: 16px;
+    height: 16px;
+    fill: #333; /* Icon color */
+  }
+
+  /* Responsive Design for Search Bar */
+  @media (max-width: 768px) {
+    .search {
+      margin-right: 0; /* Remove margin on smaller screens */
+      max-width: 100%; /* Full width on smaller screens */
+    }
+
+    .search .input_s {
+      font-size: 12px; /* Smaller font size for mobile */
+    }
+  }
+  @media (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .site-menu {
+      justify-content: flex-start;
+      margin-top: 10px;
+    }
+
+    .toolbar {
+      justify-content: flex-start;
+      margin-top: 10px;
+    }
+  }
+</style>
+
+
+Search
+
+<form class="site-search" method="get">
+      {% csrf_token %}
+  <input type="text" name="site_search" placeholder="Type to search...">
+  <div class="search-tools">
+      <span class="clear-search">Clear</span>
+      <span class="close-search">
+        <i class="icon-cross"></i>
+      </span>
+      </div>
+</form>
+
+
+<header class="navbar navbar-expand-lg navbar-light bg-light d-flex align-items-center justify-content-between p-3">
+  <!-- Logo (Left) -->
+  <a href="{% url 'home' %}" class="me-3">
+      <img src="static/img/logo/logo_2.png" style="height: 100px; border-radius: 20px;">
+  </a>
+
+  <!-- Centered Navigation -->
+  <nav class="site-menu flex-grow-1 text-center">
+      <ul class="has_megamenu d-flex justify-content-center align-items-center m-0">
+          <li class="has-menu">
+              <a href="{% url 'home' %}"><span><h3>Home</h3></span></a>
+          </li>
+          <li>
+              <a href="{% url 'shopgrid' %}"><span><h3>Shop</h3></span></a>
+          </li>
+          <li>
+              <a href="{% url 'about' %}"><span><h3>About</h3></span></a>
+          </li>
+      </ul>
+  </nav>
+
+  <!-- Search Bar (Right) -->
+  <input type="search" name="search" id="search_id" placeholder="Search..." style="margin-left: 80%;">
+  
+
+  <!-- Profile Icon (Far Right) -->
+  <div>
+      <a>
+          <img src="static/img/profilelogo.jpg" style="height: 50px; border-radius: 80px; border: 3px solid black;">
+      </a> 
+  </div>
+</header>
+
+
+
+
+<!-- Centered Navigation -->
+    <nav >
+        <ul >
+            <li >
+                <a href="{% url 'home' %}"><h3>Home</h3></a>
+            </li>
+            <li>
+                <a href="{% url 'shopgrid' %}"><h3>Shop</h3></a>
+            </li>
+            <li>
+                <a href="{% url 'about' %}"><h3>About</h3></a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Search Bar (Correctly Positioned) -->
+    <div >
+        <input type="search" name="search" id="search_id" class="form-control" placeholder="Search..." style="width: 220px;">
+    </div>
+
+    <!-- Profile Icon (Far Right) -->
+    <div>
+        <a>
+            <img src="static/img/profilelogo.jpg" style="height: 50px; border-radius: 80px; border: 3px solid black;">
+        </a> 
+    </div>

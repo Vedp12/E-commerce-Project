@@ -4,6 +4,9 @@ from .models import Wishlist, Product, Main_Category, Sub_category, Size_filter,
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
+def account(request):
+    return render(request, 'account.html')
+
 def home(request):
     return render(request, 'index.html')
 

@@ -6,225 +6,53 @@
   <meta charset="utf-8">
   <title>Trilogy Shop
   </title>
-  <!-- Mobile Specific Meta Tag-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- Vendor Styles including: Bootstrap, Font Icons, Plugins, etc.-->
   <link rel="stylesheet" media="screen" href="{% static 'css/vendor.min.css' %}">
-  <!-- Main Template Styles-->
   <link id="mainStyles" rel="stylesheet" media="screen" href="{% static 'css/styles.min.css' %}">
-  <!-- Modernizr-->
+  <link rel="icon" href="static/img/logo/mainlogo.png" style="border-radius: 50px;">
   <script src="{% static 'js/modernizr.min.js' %}"></script>
-
-  <!--      ADD GOOGLE ANALYTICS HERE            -->
-  <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118296250-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'UA-118296250-1');
   </script>
-
-
-
+  <link rel="stylesheet" href="{% static 'css/header.css' %}">
 </head>
-<!-- Body-->
-
 <body>
-  <!-- Topbar-->
-  <div class="topbar">
-    <div class="topbar-column">
-      <a class="hidden-md-down" href="mailto:support@tshop.com">
-        <i class="icon-mail"></i>&nbsp; support@tshop.com</a>
-      <a class="hidden-md-down" href="tel:00331697720">
-        <i class="icon-bell"></i>&nbsp; 00 33 169 7720</a>
-      <a class="social-button sb-facebook shape-none sb-dark" href="#" target="_blank">
-        <i class="socicon-facebook"></i>
-      </a>
-      <a class="social-button sb-twitter shape-none sb-dark" href="#" target="_blank">
-        <i class="socicon-twitter"></i>
-      </a>
-      <a class="social-button sb-instagram shape-none sb-dark" href="#" target="_blank">
-        <i class="socicon-instagram"></i>
-      </a>
-      <a class="social-button sb-pinterest shape-none sb-dark" href="#" target="_blank">
-        <i class="socicon-pinterest"></i>
-      </a>
-    </div>
-    <div class="topbar-column">
-      <a class="hidden-md-down" href="#">
-        <i class="icon-download"></i>&nbsp; Get mobile app</a>
-      <div class="lang-currency-switcher-wrap">
-        <div class="lang-currency-switcher dropdown-toggle">
-          <span class="language">
-            <img alt="English" src="static/img/flags/GB.png">
-          </span>
-          <span class="currency">$ USD</span>
-        </div>
-        <div class="dropdown-menu">
-          <div class="currency-select">
-            <select class="form-control form-control-rounded form-control-sm">
-              <option value="usd">$ USD</option>
-              <option value="usd">€ EUR</option>
-              <option value="usd">£ UKP</option>
-              <option value="usd">¥ JPY</option>
-            </select>
-          </div>
-          <a class="dropdown-item" href="#">
-            <img src="{% static 'static/img/flags/FR.png' %}" alt="Français">Français</a>
-          <a class="dropdown-item" href="#">
-            <img src="{% static 'static/img/flags/DE.png' %}" alt="Deutsch">Deutsch</a>
-          <a class="dropdown-item" href="#">
-            <img src="{% static 'static/img/flags/IT.png' %}" alt="Italiano">Italiano</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Navbar-->
-  <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
-  {% block content %}
-  <header class="navbar navbar-sticky">
-    <!-- Search-->
-    <form class="site-search" method="get">
-      <input type="text" name="site_search" placeholder="Type to search...">
-      <div class="search-tools">
-        <span class="clear-search">Clear</span>
-        <span class="close-search">
-          <i class="icon-cross"></i>
-        </span>
-      </div>
-    </form>
-    <div class="site-branding">
-      <div class="inner">
-        <!-- Off-Canvas Toggle (#shop-categories)-->
-        <a class="offcanvas-toggle cats-toggle" href="#shop-categories" data-toggle="offcanvas"></a>
-        <!-- Off-Canvas Toggle (#mobile-menu)-->
-        <a class="offcanvas-toggle menu-toggle" href="#mobile-menu" data-toggle="offcanvas"></a>
-        <!-- Site Logo-->
-        <a class="site-logo" href="{% url 'home' %}">
-          <img src="static/img/logo/logo.png" alt="tshop">
+
+  <header class="navbar navbar-expand-lg navbar-light bg-light p-3">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+        <a href="{% url 'home' %}" class="me-3">
+            <img src="static/img/logo/logo_2.png" style="height: 75px; border-radius: 20px;">
         </a>
-      </div>
-    </div>
-    <!-- Main Navigation-->
-    <nav class="site-menu">
-      <ul>
-        <li class="has-megamenu active">
-          <a href="{% url 'home' %}">
-            <span>Home</span>
-          </a>
-          <li>
-            <a href="{% url 'shopgrid' %}">
-              <span>Shop</span>
-            </a>
-            <li>
-              <a href="{% url 'about' %}">
-                <span>About</span>
-              </a>
-    </nav>
-    <!-- Toolbar-->
-    <div class="toolbar">
-      <div class="inner">
-        <div class="tools">
-          <div class="search">
-            <i class="icon-search"></i>
-          </div>
-          <div class="account">
-            <a href="account-orders.html"></a>
-            <i class="icon-head"></i>
-            <ul class="toolbar-dropdown">
-              <li class="sub-menu-user">
-                <div class="user-ava">
-                  <img src="{% static 'account/user-ava-sm.jpg' %}" alt="Daniel Adams">
-                </div>
-                <div class="user-info">
-                  <h6 class="user-name">Daniel Adams</h6>
-                  <span class="text-xs text-muted">290 Reward points</span>
-                </div>
-              </li>
-              <li>
-                <a href="account-profile.html">My Profile</a>
-              </li>
-              <li>
-                <a href="account-orders.html">Orders List</a>
-              </li>
-              <li>
-                <a href="account-wishlist.html">Wishlist</a>
-              </li>
-              <li class="sub-menu-separator"></li>
-              <li>
-                <a href="#">
-                  <i class="icon-unlock"></i>Logout</a>
-              </li>
+        <nav style="margin-top: 20px;">
+            <ul class="navbar-nav d-flex flex-row gap-4 align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" id="nav_l1_1" href="{% url 'home' %}"><h3>Home</h3></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="nav_l1_2" href="{% url 'shopgrid' %}"><h3>Shop</h3></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="nav_l1_3" href="{% url 'about' %}"><h3>About</h3></a>
+                </li>
             </ul>
-          </div>
-          <div class="cart">
-            <a href="cart.html"></a>
-            <i class="icon-bag"></i>
-            <span class="count">3</span>
-            <span class="subtotal">$289.68</span>
-            <div class="toolbar-dropdown">
-              <div class="dropdown-product-item">
-                <span class="dropdown-product-remove">
-                  <i class="icon-cross"></i>
-                </span>
-                <a class="dropdown-product-thumb" href="shop-single.html">
-                  <img src="{% static 'cart-dropdown/01.jpg' %}" alt="Product">
-                </a>
-                <div class="dropdown-product-info">
-                  <a class="dropdown-product-title" href="shop-single.html">Unionbay Park</a>
-                  <span class="dropdown-product-details">1 x $43.90</span>
-                </div>
-              </div>
-              <div class="dropdown-product-item">
-                <span class="dropdown-product-remove">
-                  <i class="icon-cross"></i>
-                </span>
-                <a class="dropdown-product-thumb" href="shop-single.html">
-                  <img src="{% static 'cart-dropdown/02.jpg' %}" alt="Product">
-                </a>
-                <div class="dropdown-product-info">
-                  <a class="dropdown-product-title" href="shop-single.html">Daily Fabric Cap</a>
-                  <span class="dropdown-product-details">2 x $24.89</span>
-                </div>
-              </div>
-              <div class="dropdown-product-item">
-                <span class="dropdown-product-remove">
-                  <i class="icon-cross"></i>
-                </span>
-                <a class="dropdown-product-thumb" href="shop-single.html">
-                  <img src="{% static 'cart-dropdown/03.jpg' %}" alt="Product">
-                </a>
-                <div class="dropdown-product-info">
-                  <a class="dropdown-product-title" href="shop-single.html">Haan Crossbody</a>
-                  <span class="dropdown-product-details">1 x $200.00</span>
-                </div>
-              </div>
-              <div class="toolbar-dropdown-group">
-                <div class="column">
-                  <span class="text-lg">Total:</span>
-                </div>
-                <div class="column text-right">
-                  <span class="text-lg text-medium">$289.68&nbsp;</span>
-                </div>
-              </div>
-              <div class="toolbar-dropdown-group">
-                <div class="column">
-                  <a class="btn btn-sm btn-block btn-secondary" href="cart.html">View Cart</a>
-                </div>
-                <div class="column">
-                  <a class="btn btn-sm btn-block btn-success" href="checkout-address.html">Checkout</a>
-                </div>
-              </div>
-            </div>
-          </div>
+        </nav>
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="static/img/profilelogo.jpg" style="height: 40px; border-radius: 50%; border: 1.5px solid black; margin-right: 25px;">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                <li><a class="dropdown-item" href="account-profile.html">👤 Account</a></li>
+                <li><a class="dropdown-item" href="{% url 'cart' %}">🛒 Cart</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="{% url 'account' %}">🔒 Logout</a></li>
+            </ul>
         </div>
-      </div>
     </div>
-  </header>
-  <!-- Off-Canvas Wrapper-->
-  <div class="offcanvas-wrapper">
+  </header>  <div class="offcanvas-wrapper">
     <!-- Page Title-->
     <div class="page-title">
       <div class="container">
@@ -394,8 +222,6 @@
         </div>
       </div>
     </div>
-    <!-- Site Footer-->
-    {% endblock %}
     <footer class="site-footer">
       <div class="container">
         <div class="row">

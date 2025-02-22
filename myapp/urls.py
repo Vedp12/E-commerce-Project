@@ -4,7 +4,8 @@ from myapp import views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('',views.home,name='home'),
-    path('cart/',views.cart,name='cart'),
+    path('account', views.account,name="account"),
+    path('cart',views.cart,name='cart'),
     path('about',views.about,name='about'),
     path('search',views.search,name='search'),
     path('shopgrid',views.shopgrid,name='shopgrid'),
