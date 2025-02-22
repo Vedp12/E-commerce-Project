@@ -21,19 +21,12 @@ def shopgrid(request):
     mid2 = request.GET.get('mid2')
     sid2 = request.GET.get('sid2')
     Bid = Brand_filter.objects.all()
-    wishlist = None
-    if request.method == 'POST':
-        wishlist = Wishlist.objects.all()
-        l1=[]
-        for i in wishlist:
-            l1.append(i.pid)
-        print(l1)
-        print(wishlist)
-        print(pid)
+    wishlist = Wishlist.objects.values_list('product_id', flat=True)
     if mid2:
         sid = sid.filter(Main_Category_id=mid2)
     if sid2:
         pid = pid.filter(Sub_category_id=sid2)
+        
     context = {
         "mid": mid,
         "sid": sid,
@@ -42,10 +35,9 @@ def shopgrid(request):
         "sid2": sid2,
         "sfid": sfid,
         "Bid": Bid,
-        "wishlist": wishlist,
+        "wishlist": wishlist,  # Pass the product IDs in wishlist
     }    
     return render(request, 'shop-grid-ls.html', context)
-
 
 def wishlist(request, id):
     if request.method == 'POST':
