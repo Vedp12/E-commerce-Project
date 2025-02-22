@@ -30,9 +30,9 @@
    <h2>🚀 Installation Guide</h2>
       <p>To set up this project locally, follow these steps:</p>
       <pre>
-      git clone https://github.com/your-repository-name.git
-      cd your-project-folder
+      git clone https://github.com/Vedp12/E-commerce-Project.git
       python3 -m venv venv
+      cd E-commerce-Project
       source venv/bin/activate  # On Windows use: venv\Scripts\activate
       pip install -r requirements.txt
       python manage.py migrate
