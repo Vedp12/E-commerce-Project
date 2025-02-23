@@ -25,16 +25,25 @@
     </script>
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
   </head>
+  <style>
+    .wishlist_icon{
+      height: 32px;
+    }
+    #wishlist_btn{
+      height: 32px;
+      width: 39.9px;
+      border: 0px;
+      background-color:transparent;
+    }
+  </style>
   
 
 <!--* Body-->
 
 <body>
-  <!-- Shop Filters Modal-->
-  
   <!--* Header  -->
 <header class="navbar navbar-expand-lg navbar-light bg-light p-3">
-    <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="container-fluid d-flex align-items-center justify-content-between" style="margin-left: 80px;">
         <a href="{% url 'home' %}" class="me-3" >
             <img src="static/img/logo/logo_2.png"   style="height: 75px; border-radius: 20px;">
         </a>
@@ -84,70 +93,49 @@
             <div class="column">
             </div>
           </div>
-          <!-- Products Grid-->
           <div class="isotope-grid cols-3 mb-2">
             <div class="gutter-sizer"></div>
             <div class="grid-sizer"></div>
-            <!-- Product-->
             {% for p in pid %}
-            <div class="grid-item">
-              <div class="product-card">
-                <!-- <div class="product-badge text-danger">50% Off</div> -->
-                <a class="product-thumb" href="shop-single.html">
-                  <img src="{{p.product_image}}" alt="Product">
-                </a>
-                <h3 class="product-title">
-                  <a href="shop-single.html" name="product_name">{{p.product_name}} </a>
-                </h3>
-                <h4 class="product-price">
-                  <span> ₹{{p.product_price}}</span>
-                </h4>
-                <div class="product-buttons">
-                  <form method="post" action="{% url 'wishlist' id=p.id %}" class="wishlist-form" data-product-id="{{ p.id }}">
-                    {% csrf_token %}
-                    <button class="btn btn-outline-secondary btn-sm btn-wishlist wishlist-btn" title="Wishlist">
-                        {% if p in wishlist %}
-                            <li><a href="{% url 'wishlist' id=p.id %}"><i class="bi bi-heart-fill" style="color:red;"></i></a></li>  <!-- Filled heart if in wishlist -->
-                        {% else %}
-                            <li><a href="{% url 'wishlist' id=p.id %}"></a><i class="bi bi-heart" style="color:black;"></i></a></li>  <!-- Empty heart if not in wishlist -->
-                        {% endif %}
-                    </button>
-                </form>
-                
-                  <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check"
-                    data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
+<div class="grid-item">
+  <div class="product-card">
+    <a class="product-thumb" href="shop-single.html">
+      <img src="{{ p.product_image.url }}" alt="Product">
+    </a>
+    <h3 class="product-title">
+      <a href="shop-single.html">{{ p.product_name }}</a>
+    </h3>
+    <h4 class="product-price">
+      <span>₹{{ p.product_price }}</span>
+    </h4>
+    <div class="product-buttons">
+      <span>
+      <form action="{% url 'wishlist' p.id %}" method="post">
+        {% csrf_token %}
+        <button id="wishlist_btn" title="Wishlist">
+          
+            {% if p.id in wishlist %}
+            <!-- <i class="bi bi-heart-fill text-danger"></i> -->
+              <img src="static/img/wishliston.png" class="wishlist_icon" alt="">
+              {% else %}
+              <img src="static/img/wishlistoff.png" class="wishlist_icon" alt="">
+            <!-- <i class="bi-heart text-dark"></i> -->
+            {% endif %}
+        </button>
+      </form>
+      <br>
+    </span>
+      <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success"
+              data-toast-position="topRight" data-toast-icon="icon-circle-check"
+              data-toast-title="Product" data-toast-message="Successfully added to cart!">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
           </div>
-          <!-- <nav class="pagination"> 
-            <div class="column">
-              <ul class="pages">
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>...</li>
-                <li>
-                  <a href="#">12</a>
-                </li>
-              </ul>
-            </div>
-            <div class="column text-right hidden-xs-down">
-              <a class="btn btn-outline-secondary btn-sm" href="#">Next&nbsp;
-                <i class="icon-arrow-right"></i>
-              </a>
-            </div>
-          </nav> -->
         </div>
         <div class="col-xl-3 col-lg-4 order-lg-1">
           <button class="sidebar-toggle position-left" data-toggle="modal" data-target="#modalShopFilters">
@@ -221,12 +209,12 @@
                 <div>
                   <input type="checkbox" name="size" value="{{ i.size }}">
                   {{ i.size }} 
-<!--                   
+                  
                   {% for key,value in size_counts.items %}
                     {% if key == i.size %}
                       <span>{{ value }}</span>
                     {% endif %}
-                  {% endfor %} -->
+                  {% endfor %}
                 </div>
                 {% endfor %}
                 <button class="btn btn-outline-primary btn-sm" type="submit">Filter</button>
@@ -381,7 +369,7 @@
   <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
   <script src="{% static 'js/vendor.min.js' %}"></script>
   <script src="{% static 'js/scripts.min.js' %}"></script>
-  
+    
 
   <script src="{% static 'customizer/customizer.min.js' %}"></script>
 </body>

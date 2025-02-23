@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect, HttpResponse
-from django.shortcuts import get_object_or_404
-from .models import Wishlist, Product, Main_Category, Sub_category, Size_filter, Brand_filter
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+from django.http import HttpResponseRedirect
+from .models import *
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
@@ -21,15 +21,18 @@ def shopgrid(request):
     sid = Sub_category.objects.all()
     pid = Product.objects.all()
     sfid = Size_filter.objects.all()
+    Bid = Brand_filter.objects.all()
     mid2 = request.GET.get('mid2')
     sid2 = request.GET.get('sid2')
-    Bid = Brand_filter.objects.all()
-    wishlist = Wishlist.objects.values_list('product_id', flat=True)
+
     if mid2:
         sid = sid.filter(Main_Category_id=mid2)
     if sid2:
         pid = pid.filter(Sub_category_id=sid2)
-        
+
+    # Retrieve the list of product IDs in the wishlist
+    wishlist_items = Wishlist.objects.values_list('product_id', flat=True)
+
     context = {
         "mid": mid,
         "sid": sid,
@@ -38,29 +41,30 @@ def shopgrid(request):
         "sid2": sid2,
         "sfid": sfid,
         "Bid": Bid,
-        "wishlist": wishlist,  # Pass the product IDs in wishlist
-    }    
+        "wishlist": wishlist_items,  # Pass the product IDs in the wishlist
+    }
     return render(request, 'shop-grid-ls.html', context)
+
 
 def wishlist(request, id):
     if request.method == 'POST':
-        pid = Product.objects.get(id=id)
-        wishlist, created = Wishlist.objects.get_or_create(
-            product=pid,
-            product_name=pid.product_name,
-            product_image=pid.product_image,
-            product_price=pid.product_price
+        product = get_object_or_404(Product, id=id)
+        wishlist_item, created = Wishlist.objects.get_or_create(
+            product=product,
+            defaults={
+                'product_name': product.product_name,
+                'product_image': product.product_image,
+                'product_price': product.product_price
+            }
         )
-        if created:
-            wishlist.save()
-        else:
-            wishlist.delete()
-        context = {
-            "wishlist": wishlist
-        }
-        return render(request, 'shop-grid-ls.html', context)
-    else:
-        return redirect('shopgrid')
+        if not created:
+            wishlist_item.delete()
+        
+        # Redirect back to the same page
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    
+    return redirect('shopgrid')
+
 
 def remove_wishlist(request, id):
     pid = Product.objects.get(id=id)
@@ -77,7 +81,7 @@ def search(request):
     
     print(Search_bar)
     if Search_bar:
-        pid = Product.objects.filter(product_name__icontains=Search_bar)
+        pid = Product.objects.filter(Sub_category__icontains=Search_bar)
     else:
         pid = Product.objects.all()
     return render(request , 'shop-grid-ls.html', {'pid': pid} )
