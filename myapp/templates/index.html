@@ -4,35 +4,39 @@
 <html lang="en">
 
 <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118296250-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-118296250-1');
-  </script>
-
   <meta charset="utf-8">
   <title>Trilogy Shop
   </title>
   <link rel="stylesheet" media="screen" href="{% static 'css/vendor.min.css' %}">
-  <!-- Main Template Styles-->
   <link id="mainStyles" rel="stylesheet" media="screen" href="{% static 'css/styles.min.css' %}">
-  <!-- Modernizr-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
   <script src="{% static 'js/modernizr.min.js' %}"></script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118301526-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'UA-118301526-1');
-  </script>
   <link rel="icon" href="static/img/logo/mainlogo.png" style="border-radius: 50px;">
   <link rel="stylesheet" href="{% static 'css/header.css' %}">
-  </head>
+</head>
+<style>
+  #footer_mail_container{
+      margin-left: 370px;
+    }
+    #footer_mail_icon{
+      margin-top: 140px;
+    }
+      #footer_mail{
+      height: 29px;
+      width: 240px;
+      border-radius: 10px;
+      border: transparent;
+      color: transparent;
+      background-color: transparent;
+      margin-bottom: 100px;
+      margin-left: 2px;
+    }
+    #footer_mail:active{
+      border: 1px solid white;
+    }
+</style>
 <body>
 <!--* Header  -->
 <header class="navbar navbar-expand-lg navbar-light bg-light p-3">
@@ -584,32 +588,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-3 col-md-6">
-            <!-- Contact Info-->
-            <section class="widget widget-light-skin">
-              <h3 class="widget-title">Get In Touch With Us</h3>
-              <p class="text-white">Phone: 00 33 169 7720</p>
-              <ul class="list-unstyled text-sm text-white">
-                <li>
-                  <span class="opacity-50">Monday-Friday:</span>9.00 am - 8.00 pm</li>
-                <li>
-                  <span class="opacity-50">Saturday:</span>10.00 am - 6.00 pm</li>
-              </ul>
-              <p>
-                <a class="navi-link-light" href="#">support@unishop.com</a>
-              </p>
-              <a class="social-button shape-circle sb-facebook sb-light-skin" href="#">
-                <i class="socicon-facebook"></i>
-              </a>
-              <a class="social-button shape-circle sb-twitter sb-light-skin" href="#">
-                <i class="socicon-twitter"></i>
-              </a>
-              <a class="social-button shape-circle sb-instagram sb-light-skin" href="#">
-                <i class="socicon-instagram"></i>
-              </a>
-              <a class="social-button shape-circle sb-google-plus sb-light-skin" href="#">
-                <i class="socicon-googleplus"></i>
-              </a>
-            </section>
+            
           </div>
           <div class="col-lg-3 col-md-6">
             <!-- Mobile App Buttons-->
@@ -638,7 +617,7 @@
                   <a href="#">Careers</a>
                 </li>
                 <li>
-                  <a href="#">About Unishop</a>
+                  <a href="#">About tshop</a>
                 </li>
                 <li>
                   <a href="#">Our Story</a>
@@ -690,24 +669,16 @@
           <div class="col-md-5 padding-bottom-1x">
             <div class="margin-top-1x hidden-md-up"></div>
             <!--Subscription-->
-            <form class="subscribe-form" action="//Trilogy.us12.list-manage.com/subscribe/post?u=c7103e2c981361a6639545bd5&amp;amp;id=1194bb7544"
+            <form class="subscribe-form" action="//rokaux.us12.list-manage.com/subscribe/post?u=c7103e2c981361a6639545bd5&amp;amp;id=1194bb7544"
               method="post" target="_blank" novalidate>
               <div class="clearfix">
-                <div class="input-group input-light">
-                  <input class="form-control" type="email" name="EMAIL" placeholder="Your e-mail">
-                  <span class="input-group-addon">
-                    <i class="icon-mail"></i>
-                  </span>
-                </div>
-                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                  <input type="text" name="b_c7103e2c981361a6639545bd5_1194bb7544" tabindex="-1">
-                </div>
-                <button class="btn btn-primary" type="submit">
-                  <i class="icon-check"></i>
-                </button>
+                <div class="input-group input-light" id="footer_mail_container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="25" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+                </svg>
+                  <input type="email" id="footer_mail" aria-describedby="emailHelp" placeholder="Email address">
               </div>
-              <span class="form-text text-sm text-white opacity-50">Subscribe to our Newsletter to receive early discount offers, latest news, sales and promo information.</span>
+              <!-- <span class="form-text text-sm text-white opacity-50">Subscribe to our Newsletter to receive early discount offers, latest news, sales and promo information.</span> -->
             </form>
           </div>
         </div>
@@ -716,15 +687,17 @@
   </div>
   <!-- Back To Top Button-->
   <a class="scroll-to-top-btn" href="#">
-    <i class="icon-arrow-up"></i>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+    </svg>
   </a>
   <!-- Backdrop-->
   <div class="site-backdrop"></div>
-  <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
+  <!--* Javascript  -->
   <script src="{% static 'js/vendor.min.js' %}"></script>
   <script src="{% static 'js/scripts.min.js' %}"></script>
-  <!-- Customizer scripts-->
   <script src="{% static 'customizer/customizer.min.js' %}"></script>
+  <script src="{% static 'js/modernizr.min.js' %}"></script>
 </body>
 
 </html>

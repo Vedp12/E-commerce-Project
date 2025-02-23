@@ -9,44 +9,52 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
     <meta charset="utf-8">
-    <title>Trilogy Shop
-    </title>
+    <title>Trilogy Shop </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" media="screen" href="{% static 'css/vendor.min.css' %}">
     <link id="mainStyles" rel="stylesheet" media="screen" href="{% static 'css/styles.min.css' %}">
     <link rel="icon" href="static/img/logo/mainlogo.png" style="border-radius: 50px;">
-    <script src="{% static 'js/modernizr.min.js' %}"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118296250-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'UA-118296250-1');
-    </script>
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
   </head>
   <style>
     .wishlist_icon{
       height: 32px;
     }
+    
     #wishlist_btn{
       height: 32px;
       width: 39.9px;
       border: 0px;
       background-color:transparent;
     }
+    /*Footer mail  */
+    #footer_mail_container{
+      margin-left: 400px;
+    }
+    #footer_mail{
+      height: 29px;
+      width: 240px;
+      border-radius: 10px;
+      border: transparent;
+      color: transparent;
+      background-color: transparent;
+      margin-left: 2px;
+    }
+    #footer_mail:active{
+
+      border: 1px solid white;
+    }
   </style>
-  
 
 <!--* Body-->
-
 <body>
-  <!--* Header  -->
+  <!--! Header  -->
 <header class="navbar navbar-expand-lg navbar-light bg-light p-3">
     <div class="container-fluid d-flex align-items-center justify-content-between" style="margin-left: 80px;">
         <a href="{% url 'home' %}" class="me-3" >
             <img src="static/img/logo/logo_2.png"   style="height: 75px; border-radius: 20px;">
         </a>
+        <!--? Navbar  -->
         <nav  style="margin-top: 20px;">
             <ul class="navbar-nav d-flex flex-row gap-4 align-items-center" id="nav_ul">
                 <li class="nav-item" >
@@ -60,12 +68,14 @@
                 </li>
             </ul>
         </nav>
+        <!--^ Search  -->
         <div class="ms-auto me-3 d-flex">
           <form class="form-inline" action="{% url 'search' %}" method="post">
             {% csrf_token %}
             <input class="Search_input" name="Search_bar" type="text" placeholder="Search for Product..." id="Search_bar" autocomplete="off"> 
           </form>
         </div>
+        <!--^ Account  -->
         <div class="dropdown">
           <a href="#" class="d-flex align-items-center" id="profileDropdown" role="button">
               <img src="static/img/profilelogo.jpg" style="height: 40px; border-radius: 50%; border: 1.5px solid black; margin-right: 25px;">
@@ -79,62 +89,55 @@
         </div>
     </div>
 </header>
-
+  <!--! Container  -->
   <br><br><br>
   <div class="offcanvas-wrapper">
     <div class="container padding-bottom-3x mb-1">
       <div class="row">
-        <!-- Products-->
         <div class="col-xl-9 col-lg-8 order-lg-2">
-          <!-- Shop Toolbar-->
           <div class="shop-toolbar padding-bottom-1x mb-2">
-            <div class="column">
-            </div>
-            <div class="column">
-            </div>
+            <div class="column"></div>
           </div>
           <div class="isotope-grid cols-3 mb-2">
             <div class="gutter-sizer"></div>
             <div class="grid-sizer"></div>
             {% for p in pid %}
-<div class="grid-item">
-  <div class="product-card">
-    <a class="product-thumb" href="shop-single.html">
-      <img src="{{ p.product_image.url }}" alt="Product">
-    </a>
-    <h3 class="product-title">
-      <a href="shop-single.html">{{ p.product_name }}</a>
-    </h3>
-    <h4 class="product-price">
-      <span>₹{{ p.product_price }}</span>
-    </h4>
-    <div class="product-buttons">
-      <span>
-      <form action="{% url 'wishlist' p.id %}" method="post">
-        {% csrf_token %}
-        <button id="wishlist_btn" title="Wishlist">
-          
-            {% if p.id in wishlist %}
-            <!-- <i class="bi bi-heart-fill text-danger"></i> -->
-              <img src="static/img/wishliston.png" class="wishlist_icon" alt="">
-              {% else %}
-              <img src="static/img/wishlistoff.png" class="wishlist_icon" alt="">
-            <!-- <i class="bi-heart text-dark"></i> -->
-            {% endif %}
-        </button>
-      </form>
-      <br>
-    </span>
-      <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success"
-              data-toast-position="topRight" data-toast-icon="icon-circle-check"
-              data-toast-title="Product" data-toast-message="Successfully added to cart!">
-        Add to Cart
-      </button>
-    </div>
-  </div>
-</div>
-{% endfor %}
-
+              <div class="grid-item">
+                <div class="product-card">
+                  <a class="product-thumb" href="shop-single.html">
+                    <img src="{{ p.product_image.url }}" alt="Product">
+                  </a>
+                  <br>
+                  <h3 class="product-title">
+                    <a href="shop-single.html"><b>{{ p.product_name }}</b></a>
+                  </h3>
+                  <h4 class="product-price">
+                    <span><b>₹{{ p.product_price }}</b></span>
+                  </h4>
+                  <div class="product-buttons">
+                    <span>
+                      <!--* Wishlist  -->
+                    <form action="{% url 'wishlist' p.id %}" method="post">
+                      {% csrf_token %}
+                      <button id="wishlist_btn" title="Wishlist">
+                          {% if p.id in wishlist %}
+                            <img src="static/img/wishliston.png" class="wishlist_icon" alt="">
+                            {% else %}
+                            <img src="static/img/wishlistoff.png" class="wishlist_icon" alt="">
+                          {% endif %}
+                      </button>
+                    </form>
+                    <br>
+                  </span>
+                    <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success"
+                            data-toast-position="topRight" data-toast-icon="icon-circle-check"
+                            data-toast-title="Product" data-toast-message="Successfully added to cart!">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
           </div>
         </div>
         <div class="col-xl-3 col-lg-4 order-lg-1">
@@ -142,7 +145,6 @@
             <i class="icon-layout"></i>
           </button>
           <aside class="sidebar sidebar-offcanvas">
-            
             <section class="widget widget-categories">
               <h3 class="widget-title">Shop Categories</h3>
               <ul>
@@ -198,8 +200,6 @@
                   <button class="btn btn-outline-primary btn-sm" type="submit">Filter</button>
               </section>
           </form>
-          
-              
             <!--* Widget Size Filter-->
             <form action="{% url 'size_filter_product' %}" method="post">
               {% csrf_token %}
@@ -225,13 +225,11 @@
         </div>
       </div>
     </div>
-    <!-- Site Footer-->
     <footer class="site-footer">
       <div class="container">
         <div class="row">
           <div class="col-lg-3 col-md-6">
-            <!-- Contact Info-->
-            <section class="widget widget-light-skin">
+            <!-- <section class="widget widget-light-skin">
               <h3 class="widget-title">Get In Touch With Us</h3>
               <p class="text-white">Phone: 00 33 169 7720</p>
               <ul class="list-unstyled text-sm text-white">
@@ -255,7 +253,7 @@
               <a class="social-button shape-circle sb-google-plus sb-light-skin" href="#">
                 <i class="socicon-googleplus"></i>
               </a>
-            </section>
+            </section> -->
           </div>
           <div class="col-lg-3 col-md-6">
             <!-- Mobile App Buttons-->
@@ -339,39 +337,37 @@
             <form class="subscribe-form" action="//rokaux.us12.list-manage.com/subscribe/post?u=c7103e2c981361a6639545bd5&amp;amp;id=1194bb7544"
               method="post" target="_blank" novalidate>
               <div class="clearfix">
-                <div class="input-group input-light">
-                  <input class="form-control" type="email" name="EMAIL" placeholder="Your e-mail">
-                  <span class="input-group-addon">
-                    <i class="icon-mail"></i>
-                  </span>
-                </div>
-                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                  <input type="text" name="b_c7103e2c981361a6639545bd5_1194bb7544" tabindex="-1">
-                </div>
-                <button class="btn btn-primary" type="submit">
-                  <i class="icon-check"></i>
-                </button>
+                <div class="input-group input-light" id="footer_mail_container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="25" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+                </svg>
+                  <input type="email" id="footer_mail" aria-describedby="emailHelp" placeholder="Email address">
               </div>
-              <span class="form-text text-sm text-white opacity-50">Subscribe to our Newsletter to receive early discount offers, latest news, sales and promo information.</span>
+              <!-- <span class="form-text text-sm text-white opacity-50">Subscribe to our Newsletter to receive early discount offers, latest news, sales and promo information.</span> -->
             </form>
           </div>
         </div>
       </div>
     </footer>
   </div>
-  <!-- Back To Top Button-->
   <a class="scroll-to-top-btn" href="#">
-    <i class="icon-arrow-up"></i>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+    </svg>
   </a>
-  <!-- Backdrop-->
   <div class="site-backdrop"></div>
   <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
   <script src="{% static 'js/vendor.min.js' %}"></script>
   <script src="{% static 'js/scripts.min.js' %}"></script>
-    
-
   <script src="{% static 'customizer/customizer.min.js' %}"></script>
+  <script src="{% static 'js/modernizr.min.js' %}"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118296250-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-118296250-1');
+  </script>
 </body>
 
 </html>
