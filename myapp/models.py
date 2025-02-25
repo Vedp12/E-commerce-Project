@@ -1,5 +1,12 @@
 from django.db import models
 
+class Signup(models.Model):
+    uname = models.CharField(max_length=100)
+    email = models.EmailField()
+    password = models.CharField(max_length=100)
+    def __str__(self):
+        return self.uname
+
 class Main_Category(models.Model):
     name=models.CharField(max_length=100)
     

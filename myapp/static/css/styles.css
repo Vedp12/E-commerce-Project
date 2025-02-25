@@ -1,0 +1,68 @@
+/* General Styling */
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: Arial, sans-serif;
+}
+
+body {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   background: linear-gradient(135deg, #6e8efb, #a777e3);
+}
+
+.auth-container {
+   width: 350px;
+   padding: 20px;
+   background: white;
+   border-radius: 10px;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+   text-align: center;
+}
+
+h2 {
+   margin-bottom: 15px;
+   color: #333;
+}
+
+input {
+   width: 100%;
+   padding: 10px;
+   margin: 10px 0;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   font-size: 16px;
+}
+
+button {
+   width: 100%;
+   padding: 10px;
+   border: none;
+   background: #6e8efb;
+   color: white;
+   font-size: 16px;
+   cursor: pointer;
+   border-radius: 5px;
+   margin-top: 10px;
+}
+
+button:hover {
+   background: #5a7be3;
+}
+
+p {
+   margin-top: 10px;
+}
+
+a {
+   color: #6e8efb;
+   cursor: pointer;
+   text-decoration: none;
+}
+
+a:hover {
+   text-decoration: underline;
+}

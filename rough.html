@@ -285,3 +285,33 @@
 </body>
 
 </html>
+
+
+
+def login(request):
+    if 'email' in request.session:
+        return render(request,"index.html")
+    try:
+       if request.POST:
+            email=request.POST['email']
+            print(email)
+            password=request.POST['password']
+            print(password)
+            uid=Register1.objects.get(email=email)
+            print(uid)
+            if uid.email==email:
+                request.session['email']=uid.email
+                if uid.password==password:
+                    return redirect("index")
+                else:
+                    con={"msg":"invalid password"}
+                    
+                    return render(request,"login.html",con)
+            else:
+                return render(request,"login.html")
+                    
+    except Register1.DoesNotExist:
+            con={"msg":"invalid Email"}
+            return render(request,"login.html",con)
+    else:
+        return render(request,"login.html")

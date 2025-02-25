@@ -63,8 +63,9 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
               <li><a class="dropdown-item" href="account-profile.html">👤 Account</a></li>
+              <li><a class="dropdown-item" href="{% url 'cart' %}">🛒 Cart</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item text-danger" href="{% url 'account' %}">🔒 Logout</a></li>
+              <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">🔒 Logout</a></li>
           </ul>
       </div>
   </div>
@@ -670,6 +671,7 @@
             <!--Subscription-->
             <form class="subscribe-form" action="//rokaux.us12.list-manage.com/subscribe/post?u=c7103e2c981361a6639545bd5&amp;amp;id=1194bb7544"
               method="post" target="_blank" novalidate>
+              {% csrf_token %}
               <div class="clearfix">
                 <div class="input-group input-light" id="footer_mail_container">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="25" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
