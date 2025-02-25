@@ -1,13 +1,10 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
   
   <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
     <meta charset="utf-8">
     <title>Trilogy Shop </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -17,17 +14,82 @@
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
   </head>
   <style>
-    .wishlist_icon{
-      height: 32px;
-    }
     
-    #wishlist_btn{
-      height: 32px;
-      width: 39.9px;
-      border: 0px;
-      background-color:transparent;
+    #wishlist_btn {
+      height: 42px;
+      width: 60px;
+      border: none;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 100px;
     }
-    /*Footer mail  */
+
+    #add_cart_btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      padding: 5px 10px;
+      border: none;
+      margin-left: 60px;
+      border-radius: 7px;
+      align-self: center;
+    }
+
+    #added_cart_btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      padding: 5px 10px;
+      border: none;
+      margin-left: 45px;
+      border-radius: 7px;
+      background-color: transparent;
+    }
+
+    #added_cart_span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 7px;
+      background-color: #0da9ef;
+      text-align: center;
+    }
+    #add_cart_span{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 5px 10px;
+      /* border: none; */
+      border-radius: 7px;
+      border:2px solid #0da9ef;
+      text-align: center;
+      &:hover{
+        background-color: #0da9ef;
+      }
+    }
+
+    #added_cart_img, #add_cart_img {
+      height: 15px;
+      margin-right: 3px;
+      align-self: center;
+      justify-self:center;
+    }
+
+    #added_cart_text, #add_cart_text {
+      font-size: 10px;
+      color: white;
+      align-self: center;
+      justify-self:center;
+    }
+    /* Footer mail  */
     #footer_mail_container{
       margin-left: 400px;
     }
@@ -41,10 +103,9 @@
       margin-left: 2px;
     }
     #footer_mail:active{
-
       border: 1px solid white;
     }
-  </style>
+</style>
 
 <!--* Body-->
 <body>
@@ -103,7 +164,7 @@
             <div class="grid-sizer"></div>
             {% for p in pid %}
               <div class="grid-item">
-                <div class="product-card">
+                <div class="product-card" style="border: 1.8px solid #000;">
                   <a class="product-thumb" href="shop-single.html">
                     <img src="{{ p.product_image.url }}" alt="Product">
                   </a>
@@ -114,27 +175,36 @@
                   <h4 class="product-price">
                     <span><b>₹{{ p.product_price }}</b></span>
                   </h4>
-                  <div class="product-buttons">
                     <span>
                       <!--* Wishlist  -->
                     <form action="{% url 'wishlist' p.id %}" method="post">
                       {% csrf_token %}
                       <button id="wishlist_btn" title="Wishlist">
                           {% if p.id in wishlist %}
-                            <img src="static/img/wishliston.png" class="wishlist_icon" alt="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="320" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                            </svg>
                             {% else %}
-                            <img src="static/img/wishlistoff.png" class="wishlist_icon" alt="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="320" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                              <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                            </svg>
                           {% endif %}
                       </button>
                     </form>
                     <br>
                   </span>
-                    <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success"
-                            data-toast-position="topRight" data-toast-icon="icon-circle-check"
-                            data-toast-title="Product" data-toast-message="Successfully added to cart!">
-                      Add to Cart
-                    </button>
-                  </div>
+                  <form action="{% url 'cart' p.id %}" method="post">
+                    {% csrf_token %}
+                      <button id="added_cart_btn">
+                        {% if p.id in cart_item %}
+                        <span id="added_cart_span"><img src="static/img/shopping-cart.png" id="added_cart_img"  alt="Add to cart">
+                          <h6 class="added_cart_text"><b>Added to cart </b></h6></span>
+                        {% else %}
+                        <span id="add_cart_span"><img src="static/img/addcart.png" id="add_cart_img"  alt="Add to cart">
+                          <h6 class="add_cart_text"><b>Add to cart</b></h6></span>
+                        {% endif %}
+                      </button>
+                  </form>
                 </div>
               </div>
             {% endfor %}
@@ -227,35 +297,8 @@
     </div>
     <footer class="site-footer">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <!-- <section class="widget widget-light-skin">
-              <h3 class="widget-title">Get In Touch With Us</h3>
-              <p class="text-white">Phone: 00 33 169 7720</p>
-              <ul class="list-unstyled text-sm text-white">
-                <li>
-                  <span class="opacity-50">Monday-Friday:</span>9.00 am - 8.00 pm</li>
-                <li>
-                  <span class="opacity-50">Saturday:</span>10.00 am - 6.00 pm</li>
-              </ul>
-              <p>
-                <a class="navi-link-light" href="#">support@tshop.com</a>
-              </p>
-              <a class="social-button shape-circle sb-facebook sb-light-skin" href="#">
-                <i class="socicon-facebook"></i>
-              </a>
-              <a class="social-button shape-circle sb-twitter sb-light-skin" href="#">
-                <i class="socicon-twitter"></i>
-              </a>
-              <a class="social-button shape-circle sb-instagram sb-light-skin" href="#">
-                <i class="socicon-instagram"></i>
-              </a>
-              <a class="social-button shape-circle sb-google-plus sb-light-skin" href="#">
-                <i class="socicon-googleplus"></i>
-              </a>
-            </section> -->
-          </div>
-          <div class="col-lg-3 col-md-6">
+        <div >
+          <div >
             <!-- Mobile App Buttons-->
             <section class="widget widget-light-skin">
               <h3 class="widget-title">Our Mobile App</h3>
@@ -273,7 +316,7 @@
               </a>
             </section>
           </div>
-          <div class="col-lg-3 col-md-6">
+          <div class="col-2 md-6">
             <!-- About Us-->
             <section class="widget widget-links widget-light-skin">
               <h3 class="widget-title">About Us</h3>

@@ -9,30 +9,50 @@ def account(request):
 
 def home(request):
     return render(request, 'index.html')
-
 def cart(request):
-    return render(request, 'cart.html')
+    cart_item = Cart.objects.all()
+    print(cart_item)
+    context={
+        'cart': cart_item
+    }
+    return render(request, 'cart.html', context)
+
+def add_to_cart(request, id):
+    if request.method == 'POST':
+        product = get_object_or_404(Product, id=id)
+        cart_item, created = Cart.objects.get_or_create(
+            product=product,
+            defaults={
+                'product_name': product.product_name,
+                'product_image': product.product_image,
+                'product_price': product.product_price,
+                'quantity': 1
+            }
+        )
+        if not created:
+            cart_item.delete()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    return redirect('shopgrid')
 
 def about(request):
     return render(request,'about.html')
 
 def shopgrid(request):
-    mid = Main_Category.objects.all()
-    sid = Sub_category.objects.all()
-    pid = Product.objects.all()
+    mid  = Main_Category.objects.all()
+    sid  = Sub_category.objects.all()
+    pid  = Product.objects.all()
     sfid = Size_filter.objects.all()
-    Bid = Brand_filter.objects.all()
+    Bid  = Brand_filter.objects.all()
     mid2 = request.GET.get('mid2')
     sid2 = request.GET.get('sid2')
-
+    wishlist_items = Wishlist.objects.values_list('product_id', flat=True)
+    cart_item = Cart.objects.values_list('product_id', flat=True)
+    
     if mid2:
         sid = sid.filter(Main_Category_id=mid2)
     if sid2:
         pid = pid.filter(Sub_category_id=sid2)
-
-    # Retrieve the list of product IDs in the wishlist
-    wishlist_items = Wishlist.objects.values_list('product_id', flat=True)
-
+        
     context = {
         "mid": mid,
         "sid": sid,
@@ -41,10 +61,10 @@ def shopgrid(request):
         "sid2": sid2,
         "sfid": sfid,
         "Bid": Bid,
-        "wishlist": wishlist_items,  # Pass the product IDs in the wishlist
+        "wishlist": wishlist_items, 
+        "cart_item": cart_item,
     }
     return render(request, 'shop-grid-ls.html', context)
-
 
 def wishlist(request, id):
     if request.method == 'POST':
@@ -59,29 +79,14 @@ def wishlist(request, id):
         )
         if not created:
             wishlist_item.delete()
-        
-        # Redirect back to the same page
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-    
     return redirect('shopgrid')
-
-
-def remove_wishlist(request, id):
-    pid = Product.objects.get(id=id)
-    wishlist_item = Wishlist.objects.filter(product_id=id).first()
-    
-    if wishlist_item:
-        wishlist_item.delete()
-    
-    return redirect('shopgrid')
-
 
 def search(request):
     Search_bar = request.POST.get('Search_bar')
     
-    print(Search_bar)
     if Search_bar:
-        pid = Product.objects.filter(Sub_category__icontains=Search_bar)
+        pid = Product.objects.filter(product_name__icontains=Search_bar)
     else:
         pid = Product.objects.all()
     return render(request , 'shop-grid-ls.html', {'pid': pid} )
@@ -128,7 +133,6 @@ def size_filter_product(request):
             "pid": pid,
             "size": size,
         }
-
     return render(request, 'shop-grid-ls.html', context)
 
 def Brand_filter_product(request):
