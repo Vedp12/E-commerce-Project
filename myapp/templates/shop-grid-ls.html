@@ -277,14 +277,11 @@
                 <h3 class="widget-title">Filter by Size</h3>
                 {% for i in sfid %}
                 <div>
-                  <input type="checkbox" name="size" value="{{ i.size }}">
+                  <input type="checkbox" name="size_{{ i.size }}" value="{{ i.size }}">
+                  
                   {{ i.size }} 
                   
-                  {% for key,value in size_counts.items %}
-                    {% if key == i.size %}
-                      <span>{{ value }}</span>
-                    {% endif %}
-                  {% endfor %}
+                  
                 </div>
                 {% endfor %}
                 <button class="btn btn-outline-primary btn-sm" type="submit">Filter</button>

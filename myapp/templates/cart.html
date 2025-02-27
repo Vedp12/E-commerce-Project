@@ -20,11 +20,49 @@
     gtag('config', 'UA-118296250-1');
   </script>
 <link rel="stylesheet" href="{% static 'css/header.css' %}">
+<style>
+  /* From Uiverse.io by vinodjangid07 */ 
+.bin-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  border-radius: 15px;
+  background-color: rgb(255, 95, 95);
+  cursor: pointer;
+  border: 3px solid rgb(255, 201, 201);
+  transition-duration: 0.3s;
+}
+.bin-bottom {
+  width: 15px;
+}
+.bin-top {
+  width: 17px;
+  transform-origin: right;
+  transition-duration: 0.3s;
+}
+.bin-button:hover .bin-top {
+  transform: rotate(45deg);
+}
+.bin-button:hover {
+  background-color: rgb(255, 0, 0);
+}
+.bin-button:active {
+  transform: scale(0.9);
+}
+#product_dropdown{
+  height: 40px;
+  width: 80px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+</style>
 </head>
-<!-- Body-->
 
 <body>
-
   <header class="navbar navbar-expand-lg navbar-light bg-light p-3">
     <div class="container-fluid d-flex align-items-center justify-content-between">
         <a href="{% url 'home' %}" class="me-3">
@@ -48,7 +86,7 @@
                 <img src="static/img/profilelogo.jpg" style="height: 40px; border-radius: 50%; border: 1.5px solid black; margin-right: 25px;">
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="account-profile.html">👤 Account</a></li>
+                <li><a class="dropdown-item" href="{% url 'account' %}">👤 Account</a></li>
                 <li><a class="dropdown-item" href="{% url 'cart' %}">🛒 Cart</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">🔒 Logout</a></li>
@@ -57,9 +95,6 @@
     </div>
   </header>  <!-- Off-Canvas Wrapper-->
   <div class="offcanvas-wrapper">
-    <!-- Page Title-->
-
-    <!-- Page Content-->
     <div class="container padding-bottom-3x mb-1">
       <!-- Alert-->
       <div class="alert alert-info alert-dismissible fade show text-center" style="margin-bottom: 30px;">
@@ -69,245 +104,111 @@
         <strong>290</strong> Reward Points.</div>
       <!-- Shopping Cart-->
       <div class="table-responsive shopping-cart">
+        
         <table class="table">
+          <tr>
+            <th>Product Image</th>
+            <th >Quantity</th>
+            <th >Price</th>
+            <th >Subtotal</th>
+            <th >
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'delete_Whole_cart'  %}">Clear Cart</a>
+            </th>
+          </tr>
           <thead>
-            <tr>
-              <th>Product Name</th>
-              <th class="text-center">Quantity</th>
-              <th class="text-center">Subtotal</th>
-              <th class="text-center">
-                <a class="btn btn-sm btn-outline-danger" href="#">Clear Cart</a>
-              </th>
-            </tr>
+            
           </thead>
-          <tbody>
-            <!--* Cart items  -->
-            {% for i in cart %}
-            <tr>
-              <td>
-                <div class="product-item">
-                  <a class="product-thumb" href="shop-single.html">
+          {% for i in cart %}
+<tbody>
+    <tr>
+        <td>
+            <div class="product-item">
+                <a class="product-thumb" href="shop-single.html">
                     <img src="{{ i.product_image.url }}" alt="Product">
-                  </a>
-                  <div class="product-info">
-                    <h4 class="product-title">
-                      <a href="shop-single.html">{{ i.product_name }}</a>
-                    </h4>
-                  </div>
-                </div>
-              </td>
-              <td class="text-center">
-                <div class="count-input">
-                  <select class="form-control">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
-                </div>
-              </td>
-              <td class="text-center text-lg text-medium">{{ i.product_price }}</td>
-              <td class="text-center">
-                <a class="remove-from-cart" href="#" data-toggle="tooltip" title="Remove item">
-                  <i class="icon-cross"></i>
                 </a>
-              </td>
-            </tr>
-            {% endfor %}
-            <!--* Cart End  -->
+                <div class="product-info">
+                    <h4 class="product-title">
+                        <a href="shop-single.html">{{ i.product_name }}</a>
+                    </h4>
+                </div>
+            </div>
+        </td>
+        <td>
+            <select class="quantity-dropdown form-select" data-id="{{ i.id }}" id="product_dropdown">
+              <option value="1" {% if i.quantity == 1 %}selected{% endif %}>1</option>
+              <option value="2" {% if i.quantity == 2 %}selected{% endif %}>2</option>
+              <option value="3" {% if i.quantity == 3 %}selected{% endif %}>3</option>
+              <option value="4" {% if i.quantity == 4 %}selected{% endif %}>4</option>
+              <option value="5" {% if i.quantity == 5 %}selected{% endif %}>5</option>
+            </select>
+        </td>
+        <td class="text-center text-lg text-medium product-price">{{ i.product_price }}</td>
+        <td class="text-center text-lg text-medium total-price" id="total-{{ i.id }}">{{ i.total_price }}</td>
+        <td class="text-center">
+            <a class="remove-from-cart" href="{% url 'delete_cart' i.id %}" data-toggle="tooltip" title="Remove item">
+              <button class="bin-button">
+                <svg
+                  class="bin-top"
+                  viewBox="0 0 39 7"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line y1="5" x2="39" y2="5" stroke="white" stroke-width="4"></line>
+                  <line
+                    x1="12"
+                    y1="1.5"
+                    x2="26.0357"
+                    y2="1.5"
+                    stroke="white"
+                    stroke-width="3"
+                  ></line>
+                </svg>
+                <svg
+                  class="bin-bottom"
+                  viewBox="0 0 33 39"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <mask id="path-1-inside-1_8_19" fill="white">
+                    <path
+                      d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"
+                    ></path>
+                  </mask>
+                  <path
+                    d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z"
+                    fill="white"
+                    mask="url(#path-1-inside-1_8_19)"
+                  ></path>
+                  <path d="M12 6L12 29" stroke="white" stroke-width="4"></path>
+                  <path d="M21 6V29" stroke="white" stroke-width="4"></path>
+                </svg>
+              </button>
+
+            </a>
+        </td>
+    </tr>
+{% endfor %}
+</tbody>
+
+<!-- Display Grand Total -->
+<tfoot>
+    <tr>
+        <td colspan="3" class="text-right"><strong>Total Bill:</strong></td>
+        <td class="text-center text-lg text-medium" id="grand-total">{{ total_bill }}</td>
+    </tr>
+</tfoot>
+
+
           </tbody>
         </table>
       </div>
-      <div class="shopping-cart-footer">
-        <div class="column">
-          <form class="coupon-form" method="post">
-            <input class="form-control form-control-sm" type="text" placeholder="Coupon code" required>
-            <button class="btn btn-outline-primary btn-sm" type="submit">Apply Coupon</button>
-          </form>
-        </div>
-        <h2>Total:100</h2>
-      </div>
-      <div class="shopping-cart-footer">
-        <div class="column">
-          <a class="btn btn-outline-secondary" href="shop-grid-ls.html">
-            <i class="icon-arrow-left"></i>&nbsp;Back to Shopping</a>
-        </div>
-        <div class="column">
-          <a class="btn btn-primary" href="#" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check"
-            data-toast-title="Your cart" data-toast-message="is updated successfully!">Update Cart</a>
-          <a class="btn btn-success" href="checkout-address.html">Checkout</a>
-        </div>
-      </div>
-      <!-- Related Products Carousel-->
-      <h3 class="text-center padding-top-2x mt-2 padding-bottom-1x">You May Also Like</h3>
-      <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;576&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
-        <div class="grid-item">
-          <div class="product-card">
-            <div class="product-badge text-danger">22% Off</div>
-            <a class="product-thumb" href="shop-single.html">
-              <img src="{% static 'img/shop/products/09.jpg' %}" alt="Product">
-            </a>
-            <h3 class="product-title">
-              <a href="shop-single.html">Rocket Dog</a>
-            </h3>
-            <h4 class="product-price">
-              <del>$44.95</del>$34.99
-            </h4>
-            <div class="product-buttons">
-              <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                <i class="icon-heart"></i>
-              </button>
-              <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check"
-                data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-        <!-- Product-->
-        <div class="grid-item">
-          <div class="product-card">
-            <div class="rating-stars">
-              <i class="icon-star filled"></i>
-              <i class="icon-star filled"></i>
-              <i class="icon-star filled"></i>
-              <i class="icon-star filled"></i>
-              <i class="icon-star"></i>
-            </div>
-            <a class="product-thumb" href="shop-single.html">
-              <img src="{% static 'img/shop/products/03.jpg' %}" alt="Product">
-            </a>
-            <h3 class="product-title">
-              <a href="shop-single.html">Oakley Kickback</a>
-            </h3>
-            <h4 class="product-price">$155.00</h4>
-            <div class="product-buttons">
-              <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                <i class="icon-heart"></i>
-              </button>
-              <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check"
-                data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-        <!-- Product-->
-        <div class="grid-item">
-          <div class="product-card">
-            <a class="product-thumb" href="shop-single.html">
-              <img src="{% static 'img/shop/products/12.jpg' %}" alt="Product">
-            </a>
-            <h3 class="product-title">
-              <a href="shop-single.html">Vented Straw Fedora</a>
-            </h3>
-            <h4 class="product-price">$49.50</h4>
-            <div class="product-buttons">
-              <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                <i class="icon-heart"></i>
-              </button>
-              <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check"
-                data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-        <!-- Product-->
-        <div class="grid-item">
-          <div class="product-card">
-            <div class="rating-stars">
-              <i class="icon-star filled"></i>
-              <i class="icon-star filled"></i>
-              <i class="icon-star filled"></i>
-              <i class="icon-star filled"></i>
-              <i class="icon-star filled"></i>
-            </div>
-            <a class="product-thumb" href="shop-single.html">
-              <img src="{% static 'img/shop/products/11.jpg' %}" alt="Product">
-            </a>
-            <h3 class="product-title">
-              <a href="shop-single.html">Top-Sider Fathom</a>
-            </h3>
-            <h4 class="product-price">$90.00</h4>
-            <div class="product-buttons">
-              <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                <i class="icon-heart"></i>
-              </button>
-              <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check"
-                data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-        <!-- Product-->
-        <div class="grid-item">
-          <div class="product-card">
-            <a class="product-thumb" href="shop-single.html">
-              <img src="{% static 'img/shop/products/04.jpg' %}" alt="Product">
-            </a>
-            <h3 class="product-title">
-              <a href="shop-single.html">Waist Leather Belt</a>
-            </h3>
-            <h4 class="product-price">$47.00</h4>
-            <div class="product-buttons">
-              <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                <i class="icon-heart"></i>
-              </button>
-              <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check"
-                data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-        <!-- Product-->
-        <div class="grid-item">
-          <div class="product-card">
-            <div class="product-badge text-danger">50% Off</div>
-            <a class="product-thumb" href="shop-single.html">
-              <img src="{% static 'img/shop/products/01.jpg' %}" alt="Product">
-            </a>
-            <h3 class="product-title">
-              <a href="shop-single.html">Unionbay Park</a>
-            </h3>
-            <h4 class="product-price">
-              <del>$99.99</del>$49.99
-            </h4>
-            <div class="product-buttons">
-              <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist">
-                <i class="icon-heart"></i>
-              </button>
-              <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check"
-                data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <hr>
     </div>
     <!-- Site Footer-->
     <footer class="site-footer">
       <div class="container">
         <div class="row">
           <div class="col-lg-3 col-md-6">
-            <!-- Contact Info-->
-            <section class="widget widget-light-skin">
-              <h3 class="widget-title">Get In Touch With Us</h3>
-              <p class="text-white">Phone: 00 33 169 7720</p>
-              <ul class="list-unstyled text-sm text-white">
-                <li>
-                  <span class="opacity-50">Monday-Friday:</span>9.00 am - 8.00 pm</li>
-                <li>
-                  <span class="opacity-50">Saturday:</span>10.00 am - 6.00 pm</li>
-              </ul>
-              <p>
-                <a class="navi-link-light" href="#">support@tshop.com</a>
-              </p>
-              <a class="social-button shape-circle sb-facebook sb-light-skin" href="#">
-                <i class="socicon-facebook"></i>
-              </a>
-              <a class="social-button shape-circle sb-twitter sb-light-skin" href="#">
-                <i class="socicon-twitter"></i>
-              </a>
-              <a class="social-button shape-circle sb-instagram sb-light-skin" href="#">
-                <i class="socicon-instagram"></i>
-              </a>
-              <a class="social-button shape-circle sb-google-plus sb-light-skin" href="#">
-                <i class="socicon-googleplus"></i>
-              </a>
-            </section>
           </div>
           <div class="col-lg-3 col-md-6">
             <!-- Mobile App Buttons-->
@@ -382,7 +283,7 @@
           <div class="col-md-7 padding-bottom-1x">
             <!-- Payment Methods-->
             <div class="margin-bottom-1x" style="max-width: 615px;">
-              <img src="{% static 'img/payment_methods.png' %}" alt="Payment Methods">
+              <img src="static/img/payment_methods.png" alt="Payment Methods">
             </div>
           </div>
           <div class="col-md-5 padding-bottom-1x">
@@ -390,30 +291,18 @@
             <!--Subscription-->
             <form class="subscribe-form" action="//rokaux.us12.list-manage.com/subscribe/post?u=c7103e2c981361a6639545bd5&amp;amp;id=1194bb7544"
               method="post" target="_blank" novalidate>
+              {% csrf_token %}
               <div class="clearfix">
-                <div class="input-group input-light">
-                  <input class="form-control" type="email" name="EMAIL" placeholder="Your e-mail">
-                  <span class="input-group-addon">
-                    <i class="icon-mail"></i>
-                  </span>
-                </div>
-                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                  <input type="text" name="b_c7103e2c981361a6639545bd5_1194bb7544" tabindex="-1">
-                </div>
-                <button class="btn btn-primary" type="submit">
-                  <i class="icon-check"></i>
-                </button>
+                <div class="input-group input-light" id="footer_mail_container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="25" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+                </svg>
+                  <input type="email" id="footer_mail" aria-describedby="emailHelp" placeholder="Email address">
               </div>
-              <span class="form-text text-sm text-white opacity-50">Subscribe to our Newsletter to receive early discount offers, latest news, sales and promo information.</span>
+              <!-- <span class="form-text text-sm text-white opacity-50">Subscribe to our Newsletter to receive early discount offers, latest news, sales and promo information.</span> -->
             </form>
           </div>
         </div>
-        <!-- Copyright-->
-        <p class="footer-copyright">© All rights reserved. Made with &nbsp;
-          <i class="icon-heart text-danger"></i>
-          <a href="http://rokaux.com/" target="_blank"> &nbsp;by rokaux</a>
-        </p>
       </div>
     </footer>
   </div>
@@ -427,7 +316,34 @@
   <script src=" {% static 'js/vendor.min.js' %}"></script>
   <script src=" {% static 'js/scripts.min.js' %}"></script>
   <!-- Customizer scripts-->
-  <script src="customizer/customizer.min.js' %}"></script>
+   <script src="{% static 'customizer/customizer.min.js' %}"></script>
+  <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  $(document).ready(function() {
+      $(".quantity-dropdown").change(function() {
+          var cartId = $(this).data("id");  // Get Cart Item ID
+          var newQuantity = $(this).val();  // Get New Quantity
+          var priceElement = $("#total-" + cartId);  // Select Total Price Element
+  
+          $.ajax({
+              url: "{% url 'update_cart' %}",  // Django URL to handle update
+              type: "POST",
+              data: {
+                  cart_id: cartId,
+                  quantity: newQuantity,
+                  csrfmiddlewaretoken: "{{ csrf_token }}"  // CSRF Token for security
+              },
+              success: function(response) {
+                  if (response.success) {
+                      priceElement.text(response.new_total);  // Update Total Price for Item
+                      $("#grand-total").text(response.grand_total);  // Update Grand Total
+                  }
+              }
+          });
+      });
+  });
+  </script> -->
+  
 </body>
 
 </html>

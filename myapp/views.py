@@ -3,65 +3,82 @@ from django.http import HttpResponseRedirect
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from django.contrib.auth import logout
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
-# def login(request):
-#     return render(request, 'login.html')
-#* Signup
 
 def signup(request):
-    if request.POST:
+    if request.method == "POST":
         uname = request.POST.get('uname')
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
-        #! Database  Connection
-        Signup.objects.create(uname=uname, email=email, password=password)
+        
         if password != confirm_password:
             return redirect('signup')
+        my_user = User.objects.create_user(username=uname, email=email, password=password)
+        my_user.save()
         return redirect('login')
     return render(request, 'signup.html')
 
-#* Login
-def login(request):    
-    if request.POST:
+def loginPage(request):
+    if request.method == "POST":
         uname = request.POST.get('uname')
         password = request.POST.get('password')
-        print(uname, password)
-        try:
-            signid = Signup.objects.get(uname=uname, password=password)
-            print(signid)
-            if uname == None or password == None or signid.uname != uname or signid.password != password: 
-                return redirect('login')
-            else:
-                return redirect('home')
-        except Signup.DoesNotExist:
+        user = authenticate(request, username=uname, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
             return redirect('login')
-    return render(request,"login.html")
+    return render(request, 'login.html')
 
 def logoutpage(request):
     logout(request)
-    return redirect('login')
+    return redirect('login/')
 
-#* Home
+
+@login_required(login_url='login/')
 def home(request):
     return render(request, 'index.html')
 
-#* Account
+
+@login_required(login_url='login/')
 def account(request):
     return render(request, 'account.html')
 
 
-#* Cart
+@login_required(login_url='login/')
 def cart(request):
-    cart_item = Cart.objects.all()
-    print(cart_item)
-    context={
-        'cart': cart_item
+    cart_items = Cart.objects.all()
+    total_bill = sum(item.total_price for item in cart_items)
+    context = {
+        'cart': cart_items,
+        'total_bill': total_bill,  
     }
     return render(request, 'cart.html', context)
 
-#* Add to Cart
+
+def delete_cart(request, id):
+    cart = Cart.objects.get(id=id)
+    cart.delete()
+    return redirect('cart')
+
+def delete_Whole_cart(request):
+    cart= Cart.objects.all()
+    cart.delete()
+    return redirect('cart')
+
+def cart_add(request):
+    quantity = request.POST.get('quantity')
+    product_id = request.POST.get('product_id')
+    product_price = request.POST.get('product_price')
+    Cart.objects.add(quantity = quantity, product_price = product_price, product_id = product_id)
+    return redirect('cart')
+
+
+@login_required(login_url='login/')
 def add_to_cart(request, id):
     if request.method == 'POST':
         product = get_object_or_404(Product, id=id)
@@ -79,11 +96,13 @@ def add_to_cart(request, id):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     return redirect('shopgrid')
 
-#* About
+
+@login_required(login_url='login/')
 def about(request):
     return render(request,'about.html')
 
-#* Shop Grid
+
+@login_required(login_url='login/')
 def shopgrid(request):
     mid  = Main_Category.objects.all()
     sid  = Sub_category.objects.all()
@@ -94,12 +113,10 @@ def shopgrid(request):
     sid2 = request.GET.get('sid2')
     wishlist_items = Wishlist.objects.values_list('product_id', flat=True)
     cart_item = Cart.objects.values_list('product_id', flat=True)
-    
     if mid2:
         sid = sid.filter(Main_Category_id=mid2)
     if sid2:
         pid = pid.filter(Sub_category_id=sid2)
-        
     context = {
         "mid": mid,
         "sid": sid,
@@ -113,7 +130,28 @@ def shopgrid(request):
     }
     return render(request, 'shop-grid-ls.html', context)
 
-#* Wishlist
+@login_required(login_url='login/')
+
+def update_cart(request):
+    if request.method == "POST":
+        cart_id = request.POST.get("cart_id")
+        new_quantity = int(request.POST.get("quantity"))
+        try:
+            cart_item = Cart.objects.get(id=cart_id)
+            cart_item.quantity = new_quantity
+            cart_item.save()
+            new_total = cart_item.total_price
+            grand_total = sum(item.total_price for item in Cart.objects.all())
+            return JsonResponse({
+                "success": True,
+                "new_total": new_total,
+                "grand_total": grand_total
+            })
+        except Cart.DoesNotExist:
+            return JsonResponse({"success": False, "error": "Cart item not found"})
+    return JsonResponse({"success": False, "error": "Invalid request"})
+
+@login_required(login_url='login/')
 def wishlist(request, id):
     if request.method == 'POST':
         product = get_object_or_404(Product, id=id)
@@ -131,7 +169,7 @@ def wishlist(request, id):
     return redirect('shopgrid')
 
 
-#* Search
+@login_required(login_url='login/')
 def search(request):
     Search_bar = request.POST.get('Search_bar')
     
@@ -141,7 +179,8 @@ def search(request):
         pid = Product.objects.all()
     return render(request , 'shop-grid-ls.html', {'pid': pid} )
 
-#* Price Filter
+
+@login_required(login_url='login/')
 def price_filter(request):
     if request.POST:
         min_num = request.POST['min_num']
@@ -161,7 +200,8 @@ def price_filter(request):
         }
         return render(request, 'shop-grid-ls.html', context)
 
-#* Size Filter
+
+@login_required(login_url='login/')
 def size_filter_product(request):
     sfid = Size_filter.objects.all()
     pid = Product.objects.all()
@@ -187,12 +227,11 @@ def size_filter_product(request):
     return render(request, 'shop-grid-ls.html', context)
 
 
-#* Brand Filter
+@login_required(login_url='login/')
 def Brand_filter_product(request):
     Bid = Brand_filter.objects.all()
     pid = Product.objects.all()
     brand = request.POST.getlist('brand')  
-
     if brand:
         brand_ids = [int(b) for b in brand]  
         pid = pid.filter(Brand_filter__id__in=brand_ids)
@@ -202,12 +241,11 @@ def Brand_filter_product(request):
         'pid': pid,
         'brand': brand
     }
-
     return render(request, 'shop-grid-ls.html', context)
-#* Shop Grid 1
-def shopgrid1(request):
-    return render(request, 'shop-grid-ls1.html')
 
-#* Shop Single
+
+@login_required(login_url='login/')
 def shop_single(request):
     return render(request, 'shop-single.html')
+
+

@@ -2,11 +2,15 @@ from django.contrib import admin
 from django.urls import path 
 from myapp import views
 urlpatterns = [
-    path('login',views.login,name='login'),
-    path('signup',views.signup,name='signup'),
+    path('',views.signup,name='signup'),
+    path('login/',views.loginPage,name='login'),
     path('logout',views.logoutpage,name='logout'),
-    path('',views.home,name='home'),
+    path('home',views.home,name='home'),
     path('cart',views.cart,name='cart'),
+    path('cart_add',views.cart_add,name='cart_add'),
+    path('delete_cart/<int:id>/',views.delete_cart,name='delete_cart'),
+    path('delete_Whole_cart',views.delete_Whole_cart,name='delete_Whole_cart'),
+    path('update-cart/', views.update_cart, name='update_cart'),  
     path('account', views.account,name="account"),
     path('about',views.about,name='about'),
     path('search',views.search,name='search'),
@@ -16,6 +20,5 @@ urlpatterns = [
     path('wishlist/<int:id>/', views.wishlist, name='wishlist'),
     path('add_to_cart/<int:id>/', views.add_to_cart, name='cart'),
     path('price_filter',views.price_filter,name='price_filter'),
-    path('shopgrid1',views.shopgrid1,name='shopgrid1'),
     path('shop_single',views.shop_single,name='shop_single'),
 ]
