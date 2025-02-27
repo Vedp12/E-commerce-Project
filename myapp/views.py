@@ -19,6 +19,7 @@ def signup(request):
             return redirect('signup')
         my_user = User.objects.create_user(username=uname, email=email, password=password)
         my_user.save()
+
         return redirect('login')
     return render(request, 'signup.html')
 
@@ -59,7 +60,6 @@ def cart(request):
     }
     return render(request, 'cart.html', context)
 
-
 def delete_cart(request, id):
     cart = Cart.objects.get(id=id)
     cart.delete()
@@ -76,7 +76,6 @@ def cart_add(request):
     product_price = request.POST.get('product_price')
     Cart.objects.add(quantity = quantity, product_price = product_price, product_id = product_id)
     return redirect('cart')
-
 
 @login_required(login_url='login/')
 def add_to_cart(request, id):
@@ -96,11 +95,29 @@ def add_to_cart(request, id):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     return redirect('shopgrid')
 
+@login_required(login_url='login/')
+def update_cart(request):
+    if request.method == "POST":
+        cart_id = request.POST.get("cart_id")
+        new_quantity = int(request.POST.get("quantity"))
+        try:
+            cart_item = Cart.objects.get(id=cart_id)
+            cart_item.quantity = new_quantity
+            cart_item.save()
+            new_total = cart_item.total_price
+            grand_total = sum(item.total_price for item in Cart.objects.all())
+            return JsonResponse({
+                "success": True,
+                "new_total": new_total,
+                "grand_total": grand_total
+            })
+        except Cart.DoesNotExist:
+            return JsonResponse({"success": False, "error": "Cart item not found"})
+    return JsonResponse({"success": False, "error": "Invalid request"})
 
 @login_required(login_url='login/')
 def about(request):
     return render(request,'about.html')
-
 
 @login_required(login_url='login/')
 def shopgrid(request):
@@ -131,27 +148,6 @@ def shopgrid(request):
     return render(request, 'shop-grid-ls.html', context)
 
 @login_required(login_url='login/')
-
-def update_cart(request):
-    if request.method == "POST":
-        cart_id = request.POST.get("cart_id")
-        new_quantity = int(request.POST.get("quantity"))
-        try:
-            cart_item = Cart.objects.get(id=cart_id)
-            cart_item.quantity = new_quantity
-            cart_item.save()
-            new_total = cart_item.total_price
-            grand_total = sum(item.total_price for item in Cart.objects.all())
-            return JsonResponse({
-                "success": True,
-                "new_total": new_total,
-                "grand_total": grand_total
-            })
-        except Cart.DoesNotExist:
-            return JsonResponse({"success": False, "error": "Cart item not found"})
-    return JsonResponse({"success": False, "error": "Invalid request"})
-
-@login_required(login_url='login/')
 def wishlist(request, id):
     if request.method == 'POST':
         product = get_object_or_404(Product, id=id)
@@ -168,6 +164,23 @@ def wishlist(request, id):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     return redirect('shopgrid')
 
+@login_required(login_url='login/')
+def single_product(request):
+    # if request.method == 'POST':
+        # product_id = request.POST.get('product_id')
+        # product = product.objects.get(id=product_id)
+        # Single_product_item, created = single_product.objects.get_or_create('product_name'=product_name,
+        #         'product_image': product.product_image,
+        #         'product_price': product.product_price )
+        #     product=product,
+        #     defaults={
+        #         'product_name': product.product_name,
+        #         'product_image': product.product_image,
+        #         'product_price': product.product_price
+        #     }
+        # )
+        
+    return render(request, 'shop-single.html')
 
 @login_required(login_url='login/')
 def search(request):
@@ -178,7 +191,6 @@ def search(request):
     else:
         pid = Product.objects.all()
     return render(request , 'shop-grid-ls.html', {'pid': pid} )
-
 
 @login_required(login_url='login/')
 def price_filter(request):
@@ -199,7 +211,6 @@ def price_filter(request):
         "pid": pid
         }
         return render(request, 'shop-grid-ls.html', context)
-
 
 @login_required(login_url='login/')
 def size_filter_product(request):
@@ -243,9 +254,5 @@ def Brand_filter_product(request):
     }
     return render(request, 'shop-grid-ls.html', context)
 
-
-@login_required(login_url='login/')
-def shop_single(request):
-    return render(request, 'shop-single.html')
 
 

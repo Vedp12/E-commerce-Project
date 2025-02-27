@@ -13,6 +13,7 @@
             <h2>Sign Up</h2>
             <form id="signup-form" action="{% url 'signup' %}" method="post">
                {% csrf_token %}
+               <!-- <input type="file" src="{% static 'images/' %}" alt="Avatar" class="avatar" name="profile_pic"> -->
                <input  name="uname" type="text" id="signup-username" placeholder="Username" required>
                <input  name="email" type="email" id="signup-email" placeholder="Email" required>
                <input  name="password" type="password" id="signup-password" placeholder="Password" required>

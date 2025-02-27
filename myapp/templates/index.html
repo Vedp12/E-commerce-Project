@@ -62,7 +62,7 @@
               <img src="static/img/profilelogo.jpg" style="height: 40px; border-radius: 50%; border: 1.5px solid black; margin-right: 25px;">
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-              <li><a class="dropdown-item" href="account-profile.html">👤 Account</a></li>
+              <li><a class="dropdown-item" href="{% url 'account' %}">👤 Account</a></li>
               <li><a class="dropdown-item" href="{% url 'cart' %}">🛒 Cart</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">🔒 Logout</a></li>

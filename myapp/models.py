@@ -4,7 +4,6 @@ class Profile(models.Model):
     uname = models.CharField(max_length=100)
     email = models.EmailField()
     password = models.CharField(max_length=100)
-    
     def __str__(self):
         return self.uname
 
@@ -21,12 +20,12 @@ class Sub_category(models.Model):
     def __str__(self):
         return self.sub_name
     
+
 class Size_filter(models.Model):
     size=models.CharField(max_length=100)
-    
     def __str__(self):
-        return self.size 
-    
+        return self.size
+
 class Brand_filter(models.Model):
     brand=models.CharField(max_length=100)
     
@@ -59,7 +58,6 @@ class Cart(models.Model):
     product_image = models.ImageField(upload_to='cart_images/', blank=True, null=True)
     product_price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.IntegerField(default=1)
-    
     def __str__(self):
         return self.product_name
     
@@ -67,3 +65,11 @@ class Cart(models.Model):
     def total_price(self):
         return self.product_price * self.quantity  
 
+class single_product(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_name = models.CharField(max_length=255)
+    product_image = models.ImageField(upload_to='single_product/', blank=True, null=True)
+    product_price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.IntegerField(default=1)
+    def __str__(self):
+        return self.product_name

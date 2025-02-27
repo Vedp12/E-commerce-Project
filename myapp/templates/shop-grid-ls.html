@@ -142,7 +142,7 @@
               <img src="static/img/profilelogo.jpg" style="height: 40px; border-radius: 50%; border: 1.5px solid black; margin-right: 25px;">
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-              <li><a class="dropdown-item" href="account-profile.html">👤 Account</a></li>
+              <li><a class="dropdown-item" href="{% url 'account' %}">👤 Account</a></li>
               <li><a class="dropdown-item" href="{% url 'cart' %}">🛒 Cart</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">🔒 Logout</a></li>
@@ -165,12 +165,12 @@
             {% for p in pid %}
               <div class="grid-item">
                 <div class="product-card" style="border: 1.8px solid #000;">
-                  <a class="product-thumb" href="shop-single.html">
+                  <a class="product-thumb" href="{% url 'single_product'  %}">
                     <img src="{{ p.product_image.url }}" alt="Product">
                   </a>
                   <br>
                   <h3 class="product-title">
-                    <a href="shop-single.html"><b>{{ p.product_name }}</b></a>
+                    <a href="{% url 'single_product' %}"><b>{{ p.product_name }}</b></a>
                   </h3>
                   <h4 class="product-price">
                     <span><b>₹{{ p.product_price }}</b></span>
