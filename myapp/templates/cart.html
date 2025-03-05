@@ -317,32 +317,32 @@
   <script src=" {% static 'js/scripts.min.js' %}"></script>
   <!-- Customizer scripts-->
    <script src="{% static 'customizer/customizer.min.js' %}"></script>
-  <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
   $(document).ready(function() {
       $(".quantity-dropdown").change(function() {
-          var cartId = $(this).data("id");  // Get Cart Item ID
-          var newQuantity = $(this).val();  // Get New Quantity
-          var priceElement = $("#total-" + cartId);  // Select Total Price Element
+          var cartId = $(this).data("id");  
+          var newQuantity = $(this).val();
+          var priceElement = $("#total-" + cartId);  
   
           $.ajax({
-              url: "{% url 'update_cart' %}",  // Django URL to handle update
-              type: "POST",
+              url: "{% url 'update_cart' %}",  
+                type: "POST",
               data: {
                   cart_id: cartId,
                   quantity: newQuantity,
-                  csrfmiddlewaretoken: "{{ csrf_token }}"  // CSRF Token for security
+                  csrfmiddlewaretoken: "{{ csrf_token }}"  
               },
               success: function(response) {
                   if (response.success) {
-                      priceElement.text(response.new_total);  // Update Total Price for Item
-                      $("#grand-total").text(response.grand_total);  // Update Grand Total
+                      priceElement.text(response.new_total);
+                      $("#grand-total").text(response.grand_total);
                   }
               }
           });
       });
   });
-  </script> -->
+  </script>
   
 </body>
 

@@ -45,7 +45,7 @@ class Product(models.Model):
         return self.product_name
 
 class Wishlist(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)  # Changed 'Product' to 'product'
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)  
     product_name = models.CharField(max_length=255)
     product_image = models.ImageField(upload_to='wishlist_images/', blank=True, null=True)
     product_price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -67,3 +67,11 @@ class Cart(models.Model):
     def total_price(self):
         return self.product_price * self.quantity  
 
+class ShopSingle(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_name = models.CharField(max_length=255)
+    product_image = models.ImageField(upload_to='wishlist_images/', blank=True, null=True)
+    product_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return self.product_name

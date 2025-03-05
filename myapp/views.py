@@ -245,7 +245,11 @@ def Brand_filter_product(request):
 
 
 @login_required(login_url='login/')
-def shop_single(request):
-    return render(request, 'shop-single.html')
+def shop_single(request, product_id):
+    product = get_object_or_404(Product, id=product_id)  # ✅ Fetch product by ID
+    context = {
+        "product": product
+    }
+    return render(request, 'shop-single.html', context)
 
 

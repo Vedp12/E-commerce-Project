@@ -3,3 +3,4 @@ myapp/migrations
 image
 env
 .vscode
+db.sqlite3
