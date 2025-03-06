@@ -15,80 +15,6 @@
   </head>
   <style>
     
-    #wishlist_btn {
-      height: 42px;
-      width: 60px;
-      border: none;
-      background-color: transparent;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-left: 100px;
-    }
-
-    #add_cart_btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: auto;
-      padding: 5px 10px;
-      border: none;
-      margin-left: 60px;
-      border-radius: 7px;
-      align-self: center;
-    }
-
-    #added_cart_btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: auto;
-      padding: 5px 10px;
-      border: none;
-      margin-left: 45px;
-      border-radius: 7px;
-      background-color: transparent;
-    }
-
-    #added_cart_span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 7px;
-      background-color: #0da9ef;
-      text-align: center;
-    }
-    #add_cart_span{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 5px 10px;
-      /* border: none; */
-      border-radius: 7px;
-      border:2px solid #0da9ef;
-      text-align: center;
-      &:hover{
-        background-color: #0da9ef;
-      }
-    }
-
-    #added_cart_img, #add_cart_img {
-      height: 15px;
-      margin-right: 3px;
-      align-self: center;
-      justify-self:center;
-    }
-
-    #added_cart_text, #add_cart_text {
-      font-size: 10px;
-      color: white;
-      align-self: center;
-      justify-self:center;
-    }
     /* Footer mail  */
     #footer_mail_container{
       margin-left: 400px;
@@ -105,7 +31,48 @@
     #footer_mail:active{
       border: 1px solid white;
     }
-    /* From Uiverse.io by NorthFishHasNa */ 
+
+  
+    .product-card {
+        border: 1.8px solid #000;
+        padding: 15px;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .product-card {
+        border: 1.8px solid #000;
+        padding: 15px;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .product-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+    .product-card button {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+    .product-price {
+        margin: 10px 0;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .product-actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin-top: 10px;
+    }
+    .product-actions svg, .product-actions img, .product-actions i {
+        width: 40px;
+        height: 40px;
+    }
 </style>
 <!--* Body-->
 <body>
@@ -113,7 +80,7 @@
 <header class="navbar navbar-expand-lg navbar-light bg-light p-3">
     <div class="container-fluid d-flex align-items-center justify-content-between" style="margin-left: 80px;">
         <a href="{% url 'home' %}" class="me-3" >
-            <img src="static/img/logo/logo_2.png"   style="height: 75px; border-radius: 20px;">
+            <img src="static/img/logo/logo_2.png"  style="height: 75px; border-radius: 20px;">
         </a>
         <!--? Navbar  -->
         <nav  style="margin-top: 20px;">
@@ -164,68 +131,51 @@
             <div class="grid-sizer"></div>
             {% for p in pid %}
             <div class="grid-item">
-                <div class="product-card" style="border: 1.8px solid #000; padding: 10px; text-align: center;">
-        
-                    <!-- ✅ Product Detail Form -->
-                    <form action="{% url 'shop_single' product_id=p.id %}" method="get">
-                        <button type="submit" style="background: none; border: none; padding: 0; margin: 0;">
-                            <img src="{{ p.product_image.url }}" alt="Product" style="width: 100%; height: auto;">
-                        </button>
-                    </form>
-        
-                    <br>
-        
-                    <!-- ✅ Product Title in Form -->
-                    <form action="{% url 'shop_single' product_id=p.id %}" method="get">
-                        <button type="submit" style="background: none; border: none; padding: 0; margin: 0; font-size: 18px; color: black;">
-                            <b>{{ p.product_name }}</b>
-                        </button>
-                    </form>
-        
-                    <!-- ✅ Product Price -->
-                    <h4 class="product-price"><b>₹{{ p.product_price }}</b></h4>
-        
-                    <!-- ✅ Action Buttons -->
-                    <div class="d-flex align-items-center justify-content-center gap-3">
-        
-                        <!-- Wishlist Button -->
-                        <form action="{% url 'wishlist' p.id %}" method="post">
-                            {% csrf_token %}
-                            <button id="wishlist_btn" title="Wishlist" style="background: none; border: none;">
-                                {% if p.id in wishlist %}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                    </svg>
-                                {% else %}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                                    </svg>
-                                {% endif %}
-                            </button>
-                        </form>
-        
-                        <!-- Add to Cart Button -->
-                        <form action="{% url 'cart' p.id %}" method="post">
-                            {% csrf_token %}
-                            <button id="added_cart_btn" style="background: none; border: none;">
-                                {% if p.id in cart_item %}
-                                    <img src="{% static 'img/shopping-cart.png' %}" width="25" height="25" alt="Added to Cart">
-                                {% else %}
-                                    <img src="{% static 'img/addcart.png' %}" width="25" height="25" alt="Add to Cart">
-                                {% endif %}
-                            </button>
-                        </form>
-        
-                        <!-- ✅ Product Detail Icon -->
-                        <form action="{% url 'shop_single' p.id %}" method="post">
-                          {% csrf_token %}
-                            <button type="submit" title="View Details" style="background: none; border: none;">
-                                <i class="bi bi-image-fill" style="font-size: 25px; color: black;"></i>
-                            </button>
-                        </form>
-        
-                    </div>
+              <div class="product-card">
+                <form action="{% url 'shop_single' product_id=p.id %}" method="get">
+                    <button type="submit">
+                        <img src="{{ p.product_image.url }}" alt="Product">
+                    </button>
+                </form>
+                <br>
+                <form action="{% url 'shop_single' product_id=p.id %}" method="get">
+                    <button type="submit" style="font-size: 18px; color: black; font-weight: bold;">
+                        {{ p.product_name }}
+                    </button>
+                </form>
+                <h4 class="product-price">₹{{ p.product_price }}</h4>
+                
+                <div class="product-actions">
+                  <form action="{% url 'wishlist' p.id %}" method="post">
+                  {% csrf_token %}
+                  <button title="Wishlist" class="action-btn">
+                      {% if p.id in wishlist %}
+                        <img src="static/img/icon/wishliston.png">
+                      {% else %}
+                      <img src="static/img/icon/wishlistoff.png">
+                      {% endif %}
+                    </button>
+                  </form>
+                  
+                  <form action="{% url 'cart' p.id %}" method="post">
+                    {% csrf_token %}
+                    <button title="Add to Cart" class="action-btn">
+                      {% if p.id in cart_item %}
+                      <img src="static/img/icon/carton.png">
+                      {% else %}
+                      <img src="static/img/icon/cartoff.png">
+                      {% endif %}
+                    </button>
+                  </form>
+                  
+                  <form action="{% url 'shop_single' p.id %}" method="post">
+                    {% csrf_token %}
+                    <button title="View Details" class="action-btn">
+                      <img src="static/img/icon/detail.png">
+                    </button>
+                  </form>
                 </div>
+            </div>
             </div>
         {% endfor %}
         
