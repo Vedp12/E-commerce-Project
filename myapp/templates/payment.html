@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <style>
+      body {
+         font-family: Arial, sans-serif;
+         background-color: #f4f4f4;
+         margin: 0;
+         padding: 0;
+      }
+      form {
+         max-width: 1200px;
+         margin: 20px auto;
+         padding: 20px;
+         background-color: #fff;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .row {
+         display: flex;
+         flex-wrap: wrap;
+         margin: 0 -15px;
+      }
+
+      .col-lg-8, .col-lg-6, .col-lg-4, .col-md-6 {
+         padding: 0 15px;
+         box-sizing: border-box;
+      }
+
+      .col-lg-8 {
+         flex: 0 0 66.6667%;
+         max-width: 66.6667%;
+      }
+
+      .col-lg-6, .col-md-6 {
+         flex: 0 0 50%;
+         max-width: 50%;
+      }
+
+      .col-lg-4 {
+         flex: 0 0 33.3333%;
+         max-width: 33.3333%;
+      }
+
+      .checkout__input {
+         margin-bottom: 20px;
+      }
+
+      .checkout__input p {
+         margin-bottom: 5px;
+         font-weight: bold;
+      }
+
+      .checkout__input input {
+         width: 100%;
+         padding: 10px;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+      }
+
+      .checkout__input__add {
+         margin-top: 10px;
+      }
+
+      .checkout__input__checkbox {
+         margin-bottom: 20px;
+      }
+
+      .checkout__input__checkbox label {
+         display: flex;
+         align-items: center;
+         cursor: pointer;
+      }
+      .checkout__input__checkbox input {
+         margin-right: 10px;
+      }
+      .site-btn {
+         display: inline-block;
+         padding: 10px 20px;
+         background-color: #0da9ef;
+         color: #fff;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+         text-transform: uppercase;
+      }
+      .site-btn:hover {
+         background-color: #0da9ef;
+      }
+      .checkout__order {
+         padding: 20px;
+         background-color: #f9f9f9;
+         border: 1px solid #ddd;
+         border-radius: 5px;
+      }
+      .checkout__order h4 {
+         margin-bottom: 20px;
+         font-weight: bold;
+      }
+      .checkout__order__products, .checkout__order__subtotal, .checkout__order__total {
+         display: flex;
+         justify-content: space-between;
+         margin-bottom: 10px;
+      }
+      .checkout__order__products span, .checkout__order__subtotal span, .checkout__order__total span {
+         font-weight: bold;
+      }
+   </style>
+</head>
+<body>
+   <form action="{% url 'billing_detail' %}" method="post">
+      {% csrf_token %}
+
+          <div class="col-lg-4 col-md-6">
+              <div class="checkout__order">
+                  <h4>Your Order</h4>
+                  <div class="checkout__order__products">Products <span>Total</span></div>
+                  {% for i in cid %}
+                  <ul>
+                      <li>{{i.name}} <span>Rs.{{i.total_price}}</span></li>
+                  </ul>
+                  {% endfor %}
+                  <div class="checkout__order__subtotal">Shipping Charges <span>{{shipping_charges}}</span></div>
+                  <div class="checkout__order__total">Total <span>{{shipping}}</span></div>
+                  <div class="checkout__input__checkbox">
+                      <label for="acc-or">
+                          Create an account?
+                          <input type="checkbox" id="acc-or">
+                          <span class="checkmark"></span>
+                      </label>
+                  </div>
+                  <div class="checkout__input__checkbox">
+                      <label for="payment">
+                          Check Payment
+                          <input type="checkbox" id="payment">
+                          <span class="checkmark"></span>
+                      </label>
+                  </div>
+                  <div class="checkout__input__checkbox">
+                      <label for="paypal">
+                          Paypal
+                          <input type="checkbox" id="paypal">
+                          <span class="checkmark"></span>1
+                      </label>
+                  </div>
+                  <button type="submit" class="site-btn">PLACE ORDER</button>
+              </div>
+          </div>
+      </div>
+  </form>
+</body>
+</html>
