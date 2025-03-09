@@ -38,56 +38,49 @@
     }
 </style>
 <body>
-
   <header class="navbar navbar-expand-lg navbar-light bg-light p-3">
     <div class="container-fluid d-flex align-items-center justify-content-between">
-        <a href="{% url 'home' %}" class="me-3">
-            <img src="static/img/logo/logo_2.png" style="height: 75px; border-radius: 20px;">
-        </a>
-        <nav style="margin-top: 20px;">
-            <ul class="navbar-nav d-flex flex-row gap-4 align-items-center">
-                <li class="nav-item">
-                    <a class="nav-link" id="nav_l1_1" href="{% url 'home' %}"><h3>Home</h3></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="nav_l1_2" href="{% url 'shopgrid' %}"><h3>Shop</h3></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="nav_l1_3" href="{% url 'about' %}"><h3>About</h3></a>
-                </li>
-            </ul>
-        </nav>
-        <div class="dropdown">
-            <a href="#" class="d-flex align-items-center" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="static/img/profilelogo.jpg" style="height: 40px; border-radius: 50%; border: 1.5px solid black; margin-right: 25px;">
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="account-profile.html">👤 Account</a></li>
-                <li><a class="dropdown-item" href="{% url 'cart' %}">🛒 Cart</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">🔒 Logout</a></li>
-            </ul>
+      <a href="{% url 'home' %}" class="me-3">
+        <img src="{% static 'img/logo/logo_2.png' %}" style="height: 75px; width: 79px; border-radius: 20px;">
+      </a>
+      <nav class="navbar-nav d-flex align-items-center">
+        <h3 class="me-2" style="margin-right: 15px;">
+          <a href="{% url 'home' %}">Home</a>
+        </h3>
+        <h3 class="me-2" style="margin-right: 15px;">
+          <a href="{% url 'shopgrid' %}">Shop</a>
+        </h3>
+        <h3 class="me-2" style="margin-right: 15px;">
+          <a href="{% url 'cart' %}">Cart</a>
+        </h3>
+      </nav>
+      <label class="popup">
+        <input type="checkbox" />
+        <div tabindex="0" class="burger" style="height: 30px; width: 32px;">
+          <svg viewBox="0 0 24 24" fill="white" height="15" width="15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2c2.757 0 5 2.243 5 5.001 0 2.756-2.243 5-5 5s-5-2.244-5-5c0-2.758 2.243-5.001 5-5.001zm0-2c-3.866 0-7 3.134-7 7.001 0 3.865 3.134 7 7 7s7-3.135 7-7c0-3.867-3.134-7.001-7-7.001zm6.369 13.353c-.497.498-1.057.931-1.658 1.302 2.872 1.874 4.378 5.083 4.972 7.346h-19.387c.572-2.29 2.058-5.503 4.973-7.358-.603-.374-1.162-.811-1.658-1.312-4.258 3.072-5.611 8.506-5.611 10.669h24c0-2.142-1.44-7.557-5.631-10.647z"></path>
+          </svg>
         </div>
-    </div>
-  </header>  <div class="offcanvas-wrapper">
-    <!-- Page Title-->
-    <!-- <div class="page-title">
-      <div class="container">
-        <div class="column">
-          <h1>About Us</h1>
-        </div>
-        <div class="column">
-          <ul class="breadcrumbs">
+        <nav class="popup-window">
+          <ul>
             <li>
-              <a href="index.html">Home</a>
+              <button>
+                <a>Account</a>
+              </button>
             </li>
-            <li class="separator">&nbsp;</li>
-            <li>About Us</li>
+            <li>
+              <button>
+                <a href="{% url 'about' %}">About</a>
+              </button>
+              <button>
+                <a href="{% url 'logout' %}" style="color: red;">Logout</a>
+              </button>
+            </li>
           </ul>
-        </div>
-      </div>
-    </div> -->
-    <!-- Page Content-->
+        </nav>
+      </label>
+    </div>
+  </header>
     <div class="container padding-bottom-2x mb-2">
       <div class="row align-items-center padding-bottom-2x">
         <div class="col-md-5">
@@ -168,76 +161,6 @@
         </div>
       </div>
       <hr>
-      <div class="text-center padding-top-3x mb-30">
-        <h2>Our Core Team</h2>
-        <p class="text-muted">People behind your awesome shopping experience.</p>
-      </div>
-      <div class="row">
-        <div class="col-md-3 col-sm-6 mb-30 text-center">
-          <img class="d-block w-150 mx-auto img-thumbnail rounded-circle mb-2" src="{% static 'img/team/01.jpg' %}" >
-          <h6>Grace Wright</h6>
-          <p class="text-muted mb-2">Founder, CEO</p>
-          <div class="social-bar">
-            <a class="social-button shape-circle sb-facebook" href="#" data-toggle="tooltip" data-placement="top" title="Facebook">
-              <i class="socicon-facebook"></i>
-            </a>
-            <a class="social-button shape-circle sb-twitter" href="#" data-toggle="tooltip" data-placement="top" title="Twitter">
-              <i class="socicon-twitter"></i>
-            </a>
-            <a class="social-button shape-circle sb-google-plus" href="#" data-toggle="tooltip" data-placement="top" title="Google +">
-              <i class="socicon-googleplus"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 mb-30 text-center">
-          <img class="d-block w-150 mx-auto img-thumbnail rounded-circle mb-2" src="{% static 'img/team/02.jpg' %}" >
-          <h6>Taylor Jackson</h6>
-          <p class="text-muted mb-2">Financial Director</p>
-          <div class="social-bar">
-            <a class="social-button shape-circle sb-skype" href="#" data-toggle="tooltip" data-placement="top" title="Skype">
-              <i class="socicon-skype"></i>
-            </a>
-            <a class="social-button shape-circle sb-facebook" href="#" data-toggle="tooltip" data-placement="top" title="Facebook">
-              <i class="socicon-facebook"></i>
-            </a>
-            <a class="social-button shape-circle sb-paypal" href="#" data-toggle="tooltip" data-placement="top" title="PayPal">
-              <i class="socicon-paypal"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 mb-30 text-center">
-          <img class="d-block w-150 mx-auto img-thumbnail rounded-circle mb-2" src="{% static 'img/team/03.jpg' %}" >
-          <h6>Quinton Cross</h6>
-          <p class="text-muted mb-2">Marketing Director</p>
-          <div class="social-bar">
-            <a class="social-button shape-circle sb-twitter" href="#" data-toggle="tooltip" data-placement="top" title="Twitter">
-              <i class="socicon-twitter"></i>
-            </a>
-            <a class="social-button shape-circle sb-google-plus" href="#" data-toggle="tooltip" data-placement="top" title="Google +">
-              <i class="socicon-googleplus"></i>
-            </a>
-            <a class="social-button shape-circle sb-email" href="#" data-toggle="tooltip" data-placement="top" title="Email">
-              <i class="socicon-mail"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6 mb-30 text-center">
-          <img class="d-block w-150 mx-auto img-thumbnail rounded-circle mb-2" src="{% static 'img/team/04.jpg' %}" >
-          <h6>Liana Mullen</h6>
-          <p class="text-muted mb-2">Lead Designer</p>
-          <div class="social-bar">
-            <a class="social-button shape-circle sb-behance" href="#" data-toggle="tooltip" data-placement="top" title="Behance">
-              <i class="socicon-behance"></i>
-            </a>
-            <a class="social-button shape-circle sb-dribbble" href="#" data-toggle="tooltip" data-placement="top" title="Dribbble">
-              <i class="socicon-dribbble"></i>
-            </a>
-            <a class="social-button shape-circle sb-instagram" href="#" data-toggle="tooltip" data-placement="top" title="Instagram">
-              <i class="socicon-instagram"></i>
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
     <footer class="site-footer">
       <div class="container">

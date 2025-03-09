@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect ,JsonResponse
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -9,29 +9,28 @@ from django.contrib.auth.decorators import login_required
 
 
 def signup(request):
-    if request.method == "POST":
-        uname = request.POST.get('uname')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
-        
-        if password != confirm_password:
-            return redirect('signup')
-        my_user = User.objects.create_user(username=uname, email=email, password=password)
-        my_user.save()
-        return redirect('login')
-    return render(request, 'signup.html')
+    if request.method != "POST":
+        return render(request, 'signup.html')
+    uname = request.POST.get('uname')
+    email = request.POST.get('email')
+    password = request.POST.get('password')
+    confirm_password = request.POST.get('confirm_password')
+
+    if password != confirm_password:
+        return redirect('signup')
+    my_user = User.objects.create_user(username=uname, email=email, password=password)
+    my_user.save()
+    return redirect('login')
 
 def loginPage(request):
     if request.method == "POST":
         uname = request.POST.get('uname')
         password = request.POST.get('password')
         user = authenticate(request, username=uname, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
+        if user is None:
             return redirect('login')
+        login(request, user)
+        return redirect('home')
     return render(request, 'login.html')
 
 def logoutpage(request):
@@ -79,7 +78,9 @@ def cart_add(request):
 
 
 @login_required(login_url='login/')
+
 def add_to_cart(request, id):
+    # sourcery skip: remove-unnecessary-else, swap-if-else-branches
     if request.method == 'POST':
         product = get_object_or_404(Product, id=id)
         cart_item, created = Cart.objects.get_or_create(
@@ -91,10 +92,15 @@ def add_to_cart(request, id):
                 'quantity': 1
             }
         )
+
         if not created:
             cart_item.delete()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-    return redirect('shopgrid')
+            return JsonResponse({"status": "removed"})
+        else:
+            return JsonResponse({"status": "added"})
+
+    return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
+
 
 
 @login_required(login_url='login/')
@@ -153,6 +159,7 @@ def update_cart(request):
 
 @login_required(login_url='login/')
 def wishlist(request, id):
+    # sourcery skip: remove-unnecessary-else, swap-if-else-branches
     if request.method == 'POST':
         product = get_object_or_404(Product, id=id)
         wishlist_item, created = Wishlist.objects.get_or_create(
@@ -163,10 +170,15 @@ def wishlist(request, id):
                 'product_price': product.product_price
             }
         )
+
         if not created:
             wishlist_item.delete()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-    return redirect('shopgrid')
+            return JsonResponse({"status": "removed"})
+        else:
+            return JsonResponse({"status": "added"})
+
+    return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
+
 
 
 @login_required(login_url='login/')
@@ -191,7 +203,6 @@ def price_filter(request):
         "max_num": max_num,
         "pid": pid
         }
-        return render(request, 'shop-grid-ls.html', context)
     else:
         context = {
         "min_num": None,
@@ -205,12 +216,11 @@ def price_filter(request):
 def size_filter_product(request):
     sfid = Size_filter.objects.all()
     pid = Product.objects.all()
-    size = request.POST.get('size')
-    if size:
+    if size := request.POST.get('size'):
         pid = Product.objects.filter(Size_filter__size=size)
         l1 = []
         l1.extend(pid)
-        
+
         context = {
             "sfid": sfid,
             "pid": l1 if size else pid,
@@ -218,7 +228,7 @@ def size_filter_product(request):
         }
     else:
         pid = Product.objects.all()
-        
+
         context = {
             "sfid": sfid,
             "pid": pid,
@@ -246,10 +256,12 @@ def Brand_filter_product(request):
 
 @login_required(login_url='login/')
 def shop_single(request, product_id):
-    product = get_object_or_404(Product, id=product_id)  # ✅ Fetch product by ID
+    product = get_object_or_404(Product, id=product_id)  
     context = {
         "product": product
     }
     return render(request, 'shop-single.html', context)
 
-
+@login_required(login_url='login/')
+def payment(request):
+    return render(request, 'payment.html')

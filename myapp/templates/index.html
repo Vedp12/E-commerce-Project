@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
   <script src="{% static 'js/modernizr.min.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
   <link rel="icon" href="static/img/logo/mainlogo.png" style="border-radius: 50px;">
   <link rel="stylesheet" href="{% static 'css/header.css' %}">
 </head>
@@ -36,40 +39,62 @@
     #footer_mail:active{
       border: 1px solid white;
     }
+    header nav h3 {
+    margin-right: 10px;
+  }
+  header nav {
+    margin-left: auto;
+  }
+
+  
+
 </style>
 <body>
 <!--* Header  -->
 <header class="navbar navbar-expand-lg navbar-light bg-light p-3">
   <div class="container-fluid d-flex align-items-center justify-content-between">
-      <a href="{% url 'home' %}" class="me-3">
-          <img src="static/img/logo/logo_2.png" style="height: 75px; border-radius: 20px;">
-      </a>
-      <nav style="margin-top: 20px;">
-          <ul class="navbar-nav d-flex flex-row gap-4 align-items-center">
-              <li class="nav-item">
-                  <a class="nav-link" id="nav_l1_1" href="{% url 'home' %}"><h3>Home</h3></a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" id="nav_l1_2" href="{% url 'shopgrid' %}"><h3>Shop</h3></a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" id="nav_l1_3" href="{% url 'about' %}"><h3>About</h3></a>
-              </li>
-          </ul>
-      </nav>
-      <div class="dropdown">
-          <a href="#" class="d-flex align-items-center" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="static/img/profilelogo.jpg" style="height: 40px; border-radius: 50%; border: 1.5px solid black; margin-right: 25px;">
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-              <li><a class="dropdown-item" href="account-profile.html">👤 Account</a></li>
-              <li><a class="dropdown-item" href="{% url 'cart' %}">🛒 Cart</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">🔒 Logout</a></li>
-          </ul>
+    <a href="{% url 'home' %}" class="me-3">
+      <img src="{% static 'img/logo/logo_2.png' %}" style="height: 75px; width: 79px; border-radius: 20px;">
+    </a>
+    <nav class="navbar-nav d-flex align-items-center">
+      <h3 class="me-2" style="margin-right: 15px;">
+        <a href="{% url 'home' %}">Home</a>
+      </h3>
+      <h3 class="me-2" style="margin-right: 15px;">
+        <a href="{% url 'shopgrid' %}">Shop</a>
+      </h3>
+      <h3 class="me-2" style="margin-right: 15px;">
+        <a href="{% url 'cart' %}">Cart</a>
+      </h3>
+    </nav>
+    <label class="popup">
+      <input type="checkbox" />
+      <div tabindex="0" class="burger" style="height: 30px; width: 32px;">
+        <svg viewBox="0 0 24 24" fill="white" height="15" width="15" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2c2.757 0 5 2.243 5 5.001 0 2.756-2.243 5-5 5s-5-2.244-5-5c0-2.758 2.243-5.001 5-5.001zm0-2c-3.866 0-7 3.134-7 7.001 0 3.865 3.134 7 7 7s7-3.135 7-7c0-3.867-3.134-7.001-7-7.001zm6.369 13.353c-.497.498-1.057.931-1.658 1.302 2.872 1.874 4.378 5.083 4.972 7.346h-19.387c.572-2.29 2.058-5.503 4.973-7.358-.603-.374-1.162-.811-1.658-1.312-4.258 3.072-5.611 8.506-5.611 10.669h24c0-2.142-1.44-7.557-5.631-10.647z"></path>
+        </svg>
       </div>
+      <nav class="popup-window">
+        <ul>
+          <li>
+            <button>
+              <a>Account</a>
+            </button>
+          </li>
+          <li>
+            <button>
+              <a href="{% url 'about' %}">About</a>
+            </button>
+            <button>
+              <a href="{% url 'logout' %}" style="color: red;">Logout</a>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </label>
   </div>
 </header>
+
   <div class="offcanvas-wrapper">
     <section class="hero-slider" style="background-image: url(img/hero-slider/main-bg.jpg);">
       <div class="owl-carousel large-controls dots-inside" data-owl-carousel="{ &quot;nav&quot;: true, &quot;dots&quot;: true, &quot;loop&quot;: true, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 7000 }">
@@ -78,7 +103,7 @@
             <div class="row justify-content-center align-items-center">
               <div class="col-lg-5 col-md-6 padding-bottom-2x text-md-left text-center">
                 <div class="from-bottom">
-                  <img class="d-inline-block w-150 mb-4" src="static/img/hero-slider/logo02.png" alt="Puma">
+                  <img class="d-inline-block w-150 mb-4" src="{% static 'img/hero-slider/logo02.png' %}" alt="Puma">
                   <div class="h2 text-body text-normal mb-2 pt-1">Puma Backpacks Collection</div>
                   <div class="h2 text-body text-normal mb-4 pb-1">starting at
                     <span class="text-bold">$37.99</span>
@@ -87,7 +112,7 @@
                 <a class="btn btn-primary scale-up delay-1" href="shop-grid-ls.html">View Offers</a>
               </div>
               <div class="col-md-6 padding-bottom-2x mb-3">
-                <img class="d-block mx-auto" src="static/img/hero-slider/02.png" alt="Puma Backpack">
+                <img class="d-block mx-auto" src="{% static 'img/hero-slider/02.png' %}" alt="Puma Backpack">
               </div>
             </div>
           </div>
@@ -97,7 +122,7 @@
             <div class="row justify-content-center align-items-center">
               <div class="col-lg-5 col-md-6 padding-bottom-2x text-md-left text-center">
                 <div class="from-bottom">
-                  <img class="d-inline-block w-200 mb-4" src="static/img/hero-slider/logo01.png" alt="Converse">
+                  <img class="d-inline-block w-200 mb-4" src="{% static 'img/hero-slider/logo01.png' %}" alt="Converse">
                   <div class="h2 text-body text-normal mb-2 pt-1">Chuck Taylor All Star II</div>
                   <div class="h2 text-body text-normal mb-4 pb-1">for only
                     <span class="text-bold">$59.99</span>
@@ -106,7 +131,7 @@
                 <a class="btn btn-primary scale-up delay-1" href="static/shop-single.html">Shop Now</a>
               </div>
               <div class="col-md-6 padding-bottom-2x mb-3">
-                <img class="d-block mx-auto" src="static/img/hero-slider/01.png" alt="Chuck Taylor All Star II">
+                <img class="d-block mx-auto" src="{% static 'img/hero-slider/01.png' %}" alt="Chuck Taylor All Star II">
               </div>
             </div>
           </div>
@@ -116,7 +141,7 @@
             <div class="row justify-content-center align-items-center">
               <div class="col-lg-5 col-md-6 padding-bottom-2x text-md-left text-center">
                 <div class="from-bottom">
-                  <img class="d-inline-block mb-4" src="static/img/hero-slider/logo03.png" style="width: 125px;" alt="Motorola">
+                  <img class="d-inline-block mb-4" src="{% static 'img/hero-slider/logo03.png' %}" style="width: 125px;" alt="Motorola">
                   <div class="h2 text-body text-normal mb-2 pt-1">Smart Watch Moto 360 2nd</div>
                   <div class="h2 text-body text-normal mb-4 pb-1">for only
                     <span class="text-bold">$299.99</span>
@@ -125,7 +150,7 @@
                 <a class="btn btn-primary scale-up delay-1" href="static/shop-single.html">Shop Now</a>
               </div>
               <div class="col-md-6 padding-bottom-2x mb-3">
-                <img class="d-block mx-auto" src="static/img/hero-slider/03.png" alt="Moto 360">
+                <img class="d-block mx-auto" src="{% static 'img/hero-slider/03.png' %}" alt="Moto 360">
               </div>
             </div>
           </div>
@@ -282,7 +307,7 @@
             </div>
           </div>
         </div>
-        <!-- Product-->
+        
         <div class="grid-item">
           <div class="product-card">
             <div class="rating-stars">

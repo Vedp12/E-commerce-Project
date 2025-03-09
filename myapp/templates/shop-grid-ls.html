@@ -14,8 +14,43 @@
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
   </head>
   <style>
-    
-    /* Footer mail  */
+.group {
+  display: flex;
+  align-items: center;
+  position: relative;
+  max-width: 220px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  width: 20px;
+  height: 20px;
+  fill: #bdbecb;
+  pointer-events: none; /* Prevents interaction issues */
+}
+
+.input {
+  width: 100%;
+  height: 45px;
+  padding: 12px 12px 12px 40px; /* Ensure space for the icon */
+  border-radius: 12px;
+  border: 1.5px solid lightgrey;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0px 0px 20px -18px;
+}
+
+.input:hover {
+  border: 2px solid lightgrey;
+  box-shadow: 0px 0px 20px -17px;
+}
+
+.input:focus {
+  border: 2px solid grey;
+}
+
+
     #footer_mail_container{
       margin-left: 400px;
     }
@@ -30,9 +65,7 @@
     }
     #footer_mail:active{
       border: 1px solid white;
-    }
-
-  
+    }  
     .product-card {
         border: 1.8px solid #000;
         padding: 15px;
@@ -76,47 +109,49 @@
 </style>
 <!--* Body-->
 <body>
-  <!--! Header  -->
-<header class="navbar navbar-expand-lg navbar-light bg-light p-3">
-    <div class="container-fluid d-flex align-items-center justify-content-between" style="margin-left: 80px;">
-        <a href="{% url 'home' %}" class="me-3" >
-            <img src="static/img/logo/logo_2.png"  style="height: 75px; border-radius: 20px;">
-        </a>
-        <!--? Navbar  -->
-        <nav  style="margin-top: 20px;">
-            <ul class="navbar-nav d-flex flex-row gap-4 align-items-center" id="nav_ul">
-                <li class="nav-item" >
-                    <a class="nav-link" id="nav_l1_1" href="{% url 'home' %}"><h3>Home</h3></a>
-                </li>
-                <li class="nav-item" >
-                    <a class="nav-link" id="nav_l1_2" href="{% url 'shopgrid' %}"><h3>Shop</h3></a>
-                </li>
-                <li class="nav-item" >
-                    <a class="nav-link" id="nav_l1_3" href="{% url 'about' %}"><h3>About</h3></a>
-                </li>
-            </ul>
-        </nav>
-        <!--^ Search  -->
-        <div class="ms-auto me-3 d-flex">
-          <form class="form-inline" action="{% url 'search' %}" method="post">
-            {% csrf_token %}
-            <input class="Search_input" name="Search_bar" type="text" placeholder="Search for Product..." id="Search_bar" autocomplete="off"> 
-          </form>
+  <header class="navbar navbar-expand-lg navbar-light bg-light p-3">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <a href="{% url 'home' %}" class="me-3">
+        <img src="{% static 'img/logo/logo_2.png' %}" style="height: 75px; width: 79px; border-radius: 20px;">
+      </a>
+      <nav class="navbar-nav d-flex align-items-center">
+        <h3 class="me-2" style="margin-right: 15px;">
+          <a href="{% url 'home' %}">Home</a>
+        </h3>
+        <h3 class="me-2" style="margin-right: 15px;">
+          <a href="{% url 'shopgrid' %}">Shop</a>
+        </h3>
+        <h3 class="me-2" style="margin-right: 15px;">
+          <a href="{% url 'cart' %}">Cart</a>
+        </h3>
+      </nav>
+      <label class="popup">
+        <input type="checkbox" />
+        <div tabindex="0" class="burger" style="height: 30px; width: 32px;">
+          <svg viewBox="0 0 24 24" fill="white" height="15" width="15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2c2.757 0 5 2.243 5 5.001 0 2.756-2.243 5-5 5s-5-2.244-5-5c0-2.758 2.243-5.001 5-5.001zm0-2c-3.866 0-7 3.134-7 7.001 0 3.865 3.134 7 7 7s7-3.135 7-7c0-3.867-3.134-7.001-7-7.001zm6.369 13.353c-.497.498-1.057.931-1.658 1.302 2.872 1.874 4.378 5.083 4.972 7.346h-19.387c.572-2.29 2.058-5.503 4.973-7.358-.603-.374-1.162-.811-1.658-1.312-4.258 3.072-5.611 8.506-5.611 10.669h24c0-2.142-1.44-7.557-5.631-10.647z"></path>
+          </svg>
         </div>
-        <!--^ Account  -->
-        <div class="dropdown">
-          <a href="#" class="d-flex align-items-center" id="profileDropdown" role="button">
-              <img src="static/img/profilelogo.jpg" style="height: 40px; border-radius: 50%; border: 1.5px solid black; margin-right: 25px;">
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-              <li><a class="dropdown-item" href="account-profile.html">👤 Account</a></li>
-              <li><a class="dropdown-item" href="{% url 'cart' %}">🛒 Cart</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">🔒 Logout</a></li>
+        <nav class="popup-window">
+          <ul>
+            <li>
+              <button>
+                <a>Account</a>
+              </button>
+            </li>
+            <li>
+              <button>
+                <a href="{% url 'about' %}">About</a>
+              </button>
+              <button>
+                <a href="{% url 'logout' %}" style="color: red;">Logout</a>
+              </button>
+            </li>
           </ul>
-        </div>
+        </nav>
+      </label>
     </div>
-</header>
+  </header>
   <!--! Container  -->
   <br><br><br>
   <div class="offcanvas-wrapper">
@@ -146,27 +181,21 @@
                 <h4 class="product-price">₹{{ p.product_price }}</h4>
                 
                 <div class="product-actions">
-                  <form action="{% url 'wishlist' p.id %}" method="post">
-                  {% csrf_token %}
-                  <button title="Wishlist" class="action-btn">
-                      {% if p.id in wishlist %}
-                        <img src="static/img/icon/wishliston.png">
-                      {% else %}
-                      <img src="static/img/icon/wishlistoff.png">
-                      {% endif %}
-                    </button>
-                  </form>
-                  
-                  <form action="{% url 'cart' p.id %}" method="post">
+                  <form action="{% url 'wishlist' p.id %}" method="post" class="wishlist-form">
                     {% csrf_token %}
-                    <button title="Add to Cart" class="action-btn">
-                      {% if p.id in cart_item %}
-                      <img src="static/img/icon/carton.png">
-                      {% else %}
-                      <img src="static/img/icon/cartoff.png">
-                      {% endif %}
+                    <button type="submit" title="Wishlist" class="action-btn wishlist-btn" data-product-id="{{ p.id }}">
+                        <img src="{% if p.id in wishlist %}static/img/icon/wishliston.png{% else %}static/img/icon/wishlistoff.png{% endif %}" 
+                             class="wishlist-icon-{{ p.id }}">
                     </button>
-                  </form>
+                </form>
+                <!-- Cart Form -->
+                <form action="{% url 'cart' p.id %}" method="post" class="cart-form">
+                    {% csrf_token %}
+                    <button type="submit" title="Add to Cart" class="action-btn cart-btn" data-product-id="{{ p.id }}">
+                        <img src="{% if p.id in cart_item %}static/img/icon/carton.png{% else %}static/img/icon/cartoff.png{% endif %}" 
+                             class="cart-icon-{{ p.id }}">
+                    </button>
+                </form>
                   
                   <form action="{% url 'shop_single' p.id %}" method="post">
                     {% csrf_token %}
@@ -187,7 +216,21 @@
           </button>
           <aside class="sidebar sidebar-offcanvas">
             <section class="widget widget-categories">
-              <h3 class="widget-title">Shop Categories</h3>
+
+              <div class="group">
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon" style="position: absolute; left: 10px; width: 20px; height: 20px; fill: #bdbecb;">
+                <g>
+                    <path
+                      d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
+                    ></path>
+                  </g>
+                </svg>
+                <form class="form-inline" action="{% url 'search' %}" method="post">
+                  {% csrf_token %}
+                  <input placeholder="Searth the product..." type="search" name="Search_bar" class="input" autocomplete="off">
+                </form>
+              </div>
+              
               <ul>
                   {% for i in mid %}
                   <li class="has-children expanded">
@@ -375,6 +418,52 @@
     gtag('js', new Date());
     gtag('config', 'UA-118296250-1');
   </script>
-</body>
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+      $(document).ready(function () {
+          // Wishlist AJAX Toggle
+          $(".wishlist-form").submit(function (e) {
+              e.preventDefault();
+              var form = $(this);
+              var productId = form.find(".wishlist-btn").data("product-id");
+              var icon = $(".wishlist-icon-" + productId);
+  
+              $.ajax({
+                  type: "POST",
+                  url: form.attr("action"),
+                  data: form.serialize(),
+                  success: function (response) {
+                      if (response.status === "added") {
+                          icon.attr("src", "static/img/icon/wishliston.png");
+                      } else {
+                          icon.attr("src", "static/img/icon/wishlistoff.png");
+                      }
+                  }
+              });
+          });
+  
+          // Cart AJAX Toggle
+          $(".cart-form").submit(function (e) {
+              e.preventDefault();
+              var form = $(this);
+              var productId = form.find(".cart-btn").data("product-id");
+              var icon = $(".cart-icon-" + productId);
+  
+              $.ajax({
+                  type: "POST",
+                  url: form.attr("action"),
+                  data: form.serialize(),
+                  success: function (response) {
+                      if (response.status === "added") {
+                          icon.attr("src", "static/img/icon/carton.png");
+                      } else {
+                          icon.attr("src", "static/img/icon/cartoff.png");
+                      }
+                  }
+              });
+          });
+      });
+  </script>
+  
+  </body>
 </html>

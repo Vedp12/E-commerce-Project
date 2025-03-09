@@ -1,0 +1,31 @@
+<header class="navbar navbar-expand-lg navbar-light bg-light p-3">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+      <a href="{% url 'home' %}" class="me-3">
+          <img src="static/img/logo/logo_2.png" style="height: 75px; border-radius: 20px;">
+      </a>
+      <nav style="margin-top: 20px;">
+          <ul class="navbar-nav d-flex flex-row gap-4 align-items-center">
+              <li class="nav-item">
+                  <a class="nav-link" id="nav_l1_1" href="{% url 'home' %}"><h3>Home</h3></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="nav_l1_2" href="{% url 'shopgrid' %}"><h3>Shop</h3></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="nav_l1_3" href="{% url 'cart' %}"><h3>cart</h3></a>
+              </li>
+          </ul>
+      </nav>
+      <div class="dropdown">
+          <a href="#" class="d-flex align-items-center" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="static/img/profilelogo.jpg" style="height: 40px; border-radius: 50%; border: 1.5px solid black; margin-right: 25px;">
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+              <li><a class="dropdown-item" href="account-profile.html">👤 Account</a></li>
+              <li><a class="dropdown-item" href="{% url 'about' %}">🔷 About</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">🔒 Logout</a></li>
+          </ul>
+      </div>
+  </div>
+</header>
