@@ -14,37 +14,50 @@
     <link id="mainStyles" rel="stylesheet" media="screen" href="{% static 'css/styles.min.css' %}">
     <link rel="icon" href="static/img/logo/mainlogo.png" style="border-radius: 50px;">
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 </head>
 <body>
   <header class="navbar navbar-expand-lg navbar-light bg-light p-3">
     <div class="container-fluid d-flex align-items-center justify-content-between">
-        <a href="{% url 'home' %}" class="me-3" >
-            <img src="{% static 'img/logo/logo_2.png' %}" style="height: 75px; border-radius: 20px;">
-        </a>
-        <nav style="margin-top: 20px;">
-            <ul class="navbar-nav d-flex flex-row gap-4 align-items-center">
-                <li class="nav-item">
-                    <a class="nav-link" id="nav_l1_1" href="{% url 'home' %}"><h3>Home</h3></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="nav_l1_2" href="{% url 'shopgrid' %}"><h3>Shop</h3></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="nav_l1_3" href="{% url 'about' %}"><h3>About</h3></a>
-                </li>
-            </ul>
-        </nav>
-        <div class="dropdown">
-            <a href="#" class="d-flex align-items-center" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{% static 'img/profilelogo.jpg' %}" style="height: 40px; border-radius: 50%; border: 1.5px solid black; margin-right: 25px;">
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" href="{% url 'account' %}">👤 Account</a></li>
-                <li><a class="dropdown-item" href="{% url 'cart' %}">🛒 Cart</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">🔒 Logout</a></li>
-            </ul>
+      <a href="{% url 'home' %}" class="me-3">
+        <img src="{% static 'img/logo/logo_2.png' %}" style="height: 75px; width: 79px; border-radius: 20px;">
+      </a>
+      <nav class="navbar-nav d-flex align-items-center">
+        <h3 class="me-2" style="margin-right: 15px;">
+          <a href="{% url 'home' %}">Home</a>
+        </h3>
+        <h3 class="me-2" style="margin-right: 15px;">
+          <a href="{% url 'shopgrid' %}">Shop</a>
+        </h3>
+        <h3 class="me-2" style="margin-right: 15px;">
+          <a href="{% url 'cart' %}">Cart</a>
+        </h3>
+      </nav>
+      <label class="popup">
+        <input type="checkbox" />
+        <div tabindex="0" class="burger" style="height: 30px; width: 32px;">
+          <svg viewBox="0 0 24 24" fill="white" height="15" width="15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2c2.757 0 5 2.243 5 5.001 0 2.756-2.243 5-5 5s-5-2.244-5-5c0-2.758 2.243-5.001 5-5.001zm0-2c-3.866 0-7 3.134-7 7.001 0 3.865 3.134 7 7 7s7-3.135 7-7c0-3.867-3.134-7.001-7-7.001zm6.369 13.353c-.497.498-1.057.931-1.658 1.302 2.872 1.874 4.378 5.083 4.972 7.346h-19.387c.572-2.29 2.058-5.503 4.973-7.358-.603-.374-1.162-.811-1.658-1.312-4.258 3.072-5.611 8.506-5.611 10.669h24c0-2.142-1.44-7.557-5.631-10.647z"></path>
+          </svg>
         </div>
+        <nav class="popup-window">
+          <ul>
+            <li>
+              <button>
+                <a>Account</a>
+              </button>
+            </li>
+            <li>
+              <button>
+                <a href="{% url 'about' %}">About</a>
+              </button>
+              <button>
+                <a href="{% url 'logout' %}" style="color: red;">Logout</a>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </label>
     </div>
   </header>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -109,188 +122,18 @@
                 </a>
               </div>
             </div>
-            <div class="sp-buttons mt-2 mb-2">
-
-              <a class="btn btn-primary" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check"
-                data-toast-title="Product" data-toast-message="successfuly added to cart!" href="{% url 'cart' %}">Cart</a>
+            <div class="sp-buttons mt-2 mb-2 text-center">
+              <a class="btn btn-primary" style="border-radius: 8px; padding-left: 20px;padding-right: 20px; padding-bottom: 48px;" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check"
+              data-toast-title="Product" href="{% url 'cart' %}">Cart</a>
             </div>
           </div>
         </div>
       </div>
 
     </div>
-    
-    <!-- Site Footer-->
-    <footer class="site-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <!-- Contact Info-->
-            <section class="widget widget-light-skin">
-              <h3 class="widget-title">Get In Touch With Us</h3>
-              <p class="text-white">Phone: 00 33 169 7720</p>
-              <ul class="list-unstyled text-sm text-white">
-                <li>
-                  <span class="opacity-50">Monday-Friday:</span>9.00 am - 8.00 pm</li>
-                <li>
-                  <span class="opacity-50">Saturday:</span>10.00 am - 6.00 pm</li>
-              </ul>
-              <p>
-                <a class="navi-link-light" href="#">support@tshop.com</a>
-              </p>
-              <a class="social-button shape-circle sb-facebook sb-light-skin" href="#">
-                <i class="socicon-facebook"></i>
-              </a>
-              <a class="social-button shape-circle sb-twitter sb-light-skin" href="#">
-                <i class="socicon-twitter"></i>
-              </a>
-              <a class="social-button shape-circle sb-instagram sb-light-skin" href="#">
-                <i class="socicon-instagram"></i>
-              </a>
-              <a class="social-button shape-circle sb-google-plus sb-light-skin" href="#">
-                <i class="socicon-googleplus"></i>
-              </a>
-            </section>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <!-- Mobile App Buttons-->
-            <section class="widget widget-light-skin">
-              <h3 class="widget-title">Our Mobile App</h3>
-              <a class="market-button apple-button mb-light-skin" href="#">
-                <span class="mb-subtitle">Download on the</span>
-                <span class="mb-title">App Store</span>
-              </a>
-              <a class="market-button google-button mb-light-skin" href="#">
-                <span class="mb-subtitle">Download on the</span>
-                <span class="mb-title">Google Play</span>
-              </a>
-              <a class="market-button windows-button mb-light-skin" href="#">
-                <span class="mb-subtitle">Download on the</span>
-                <span class="mb-title">Windows Store</span>
-              </a>
-            </section>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <!-- About Us-->
-            <section class="widget widget-links widget-light-skin">
-              <h3 class="widget-title">About Us</h3>
-              <ul>
-                <li>
-                  <a href="#">Careers</a>
-                </li>
-                <li>
-                  <a href="#">About tshop</a>
-                </li>
-                <li>
-                  <a href="#">Our Story</a>
-                </li>
-                <li>
-                  <a href="#">Services</a>
-                </li>
-                <li>
-                  <a href="#">Our Blog</a>
-                </li>
-              </ul>
-            </section>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <!-- Account / Shipping Info-->
-            <section class="widget widget-links widget-light-skin">
-              <h3 class="widget-title">Account &amp; Shipping Info</h3>
-              <ul>
-                <li>
-                  <a href="#">Your Account</a>
-                </li>
-                <li>
-                  <a href="#">Shipping Rates & Policies</a>
-                </li>
-                <li>
-                  <a href="#">Refunds & Replacements</a>
-                </li>
-                <li>
-                  <a href="#">Taxes</a>
-                </li>
-                <li>
-                  <a href="#">Delivery Info</a>
-                </li>
-                <li>
-                  <a href="#">Affiliate Program</a>
-                </li>
-              </ul>
-            </section>
-          </div>
-        </div>
-        <hr class="hr-light mt-2 margin-bottom-2x">
-        <div class="row">
-          <div class="col-md-7 padding-bottom-1x">
-            <!-- Payment Methods-->
-            <div class="margin-bottom-1x" style="max-width: 615px;">
-              <img src="static/img/payment_methods.png" alt="Payment Methods">
-            </div>
-          </div>
-          <div class="col-md-5 padding-bottom-1x">
-            <div class="margin-top-1x hidden-md-up"></div>
-            <!--Subscription-->
-            <form class="subscribe-form" action="//rokaux.us12.list-manage.com/subscribe/post?u=c7103e2c981361a6639545bd5&amp;amp;id=1194bb7544"
-              method="post" target="_blank" novalidate>
-              <div class="clearfix">
-                <div class="input-group input-light">
-                  <input class="form-control" type="email" name="EMAIL" placeholder="Your e-mail">
-                  <span class="input-group-addon">
-                    <i class="icon-mail"></i>
-                  </span>
-                </div>
-                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                  <input type="text" name="b_c7103e2c981361a6639545bd5_1194bb7544" tabindex="-1">
-                </div>
-                <button class="btn btn-primary" type="submit">
-                  <i class="icon-check"></i>
-                </button>
-              </div>
-              <span class="form-text text-sm text-white opacity-50">Subscribe to our Newsletter to receive early discount offers, latest news, sales and promo information.</span>
-            </form>
-          </div>
-        </div>
-      </div>
-    </footer>
+   
   </div>
-  
-  <!-- Photoswipe container-->
-  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="pswp__bg"></div>
-    <div class="pswp__scroll-wrap">
-      <div class="pswp__container">
-        <div class="pswp__item"></div>
-        <div class="pswp__item"></div>
-        <div class="pswp__item"></div>
-      </div>
-      <div class="pswp__ui pswp__ui--hidden">
-        <div class="pswp__top-bar">
-          <div class="pswp__counter"></div>
-          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-          <button class="pswp__button pswp__button--share" title="Share"></button>
-          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-          <div class="pswp__preloader">
-            <div class="pswp__preloader__icn">
-              <div class="pswp__preloader__cut">
-                <div class="pswp__preloader__donut"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-          <div class="pswp__share-tooltip"></div>
-        </div>
-        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
-        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
-        <div class="pswp__caption">
-          <div class="pswp__caption__center"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+
   <a class="scroll-to-top-btn" href="#">
     <i class="icon-arrow-up"></i>
   </a>
