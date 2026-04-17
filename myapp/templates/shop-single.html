@@ -138,6 +138,14 @@
     <i class="icon-arrow-up"></i>
   </a>
   <div class="site-backdrop"></div>
+  <script src="{% static 'js/auth.js' %}"></script>
+  {% if request.user.is_authenticated %}
+  <script>
+    setUserData({ username: "{{ request.user.username|escapejs }}", email: "{{ request.user.email|escapejs }}", id: "{{ request.user.id }}" });
+  </script>
+  {% else %}
+  <script> requireAuth(); </script>
+  {% endif %}
   <script src=" {% static 'js/vendor.min.js' %}"></script>
   <script src=" {% static 'js/scripts.min.js' %}"></script>
   <script src="{% static 'customizer/customizer.min.js' %}"></script>

@@ -15,13 +15,19 @@ def signup(request):
     email = request.POST.get('email')
     password = request.POST.get('password')
     confirm_password = request.POST.get('confirm_password')
-
     if password != confirm_password:
+        return redirect('signup')
+    if User.objects.filter(username=uname).exists():
         return redirect('signup')
     my_user = User.objects.create_user(username=uname, email=email, password=password)
     my_user.save()
+    user = authenticate(request, username=uname, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect('home')
     return redirect('login')
 
+# Login view
 def loginPage(request):
     if request.method == "POST":
         uname = request.POST.get('uname')
@@ -35,7 +41,7 @@ def loginPage(request):
 
 def logoutpage(request):
     logout(request)
-    return redirect('login/')
+    return redirect('/login/?logged_out=1')
 
 
 @login_required(login_url='login/')

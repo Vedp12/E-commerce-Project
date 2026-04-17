@@ -23,6 +23,11 @@
       </div>
    </div>
 
-   
+   <script src="{% static 'js/auth.js' %}"></script>
+   <script>
+      (function(){
+         redirectIfAuthenticated();
+      })();
+   </script>
 </body>
 </html>
