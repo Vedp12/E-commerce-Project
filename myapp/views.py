@@ -27,6 +27,7 @@ def signup(request):
         return redirect('home')
     return redirect('login')
 
+# Login view
 def loginPage(request):
     if request.method == "POST":
         uname = request.POST.get('uname')
