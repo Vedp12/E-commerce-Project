@@ -246,6 +246,15 @@
   </a>
   <!-- Backdrop-->
   <div class="site-backdrop"></div>
+  <script src="{% static 'js/auth.js' %}"></script>
+  {% if request.user.is_authenticated %}
+  <script>
+    setUserData({ username: "{{ request.user.username|escapejs }}", email: "{{ request.user.email|escapejs }}", id: "{{ request.user.id }}" });
+  </script>
+  {% else %}
+  <script> requireAuth(); </script>
+  {% endif %}
+
   <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
   <script src="{% static 'js/vendor.min.js' %}"></script>
   <script src="{% static 'js/scripts.min.js' %}"></script>

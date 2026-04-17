@@ -184,6 +184,21 @@ body{
     </div>
         </div>
     </div>
-    <script src="{% static 'js/script.js' %}"></script>
+     <script src="{% static 'js/auth.js' %}"></script>
+     <script>
+      (function(){
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('logged_out') === '1') {
+          try { localStorage.removeItem('UserData'); } catch(e) {}
+          alert('You have been logged out.');
+          history.replaceState(null, '', window.location.pathname);
+        }
+        if (params.get('msg')) {
+          alert(params.get('msg'));
+          history.replaceState(null, '', window.location.pathname);
+        }
+        redirectIfAuthenticated();
+      })();
+     </script>
 </body>
 </html>
